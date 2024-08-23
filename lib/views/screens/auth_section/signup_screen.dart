@@ -19,15 +19,15 @@ class SignUpScreen extends StatelessWidget {
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.h),
-            child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -39,12 +39,20 @@ class SignUpScreen extends StatelessWidget {
                     style: AppTextStyles.boldTextStyle,
                   ),
                   SizedBox(
-                    height: 11.h,
+                    height: 5.h,
                   ),
                   customTextFormField(
                     prefix: "assets/svgs/email.svg",
                     controller: emailController,
                     title: "Email",
+                  ),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
+                  customTextFormField(
+                    prefix: "assets/svgs/invitation.svg",
+                    controller: emailController,
+                    title: "Referral code",
                   ),
                   SizedBox(
                     height: 1.6.h,
@@ -109,34 +117,20 @@ class SignUpScreen extends StatelessWidget {
                     },
                     child: RichText(
                         text: TextSpan(children: [
-                      TextSpan(
-                          text: 'Already have an Account?  ',
-                          style: AppTextStyles.regularStyle
-                              .copyWith(color: AppColors.secondaryColor)),
-                      TextSpan(text: 'Login', style: AppTextStyles.regularStyle)
-                    ])),
+                          TextSpan(
+                              text: 'Already have an Account?  ',
+                              style: AppTextStyles.regularStyle
+                                  .copyWith(color: AppColors.secondaryColor)),
+                          TextSpan(text: 'Login', style: AppTextStyles.regularStyle)
+                        ])),
                   ),
-                  SizedBox(
-                    height: 1.6.h,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset("assets/svgs/google.svg"),
-                      SizedBox(
-                        width: 1.6.h,
-                      ),
-                      SvgPicture.asset("assets/svgs/apple.svg"),
-                      SizedBox(
-                        width: 1.6.h,
-                      ),
-                      SvgPicture.asset("assets/svgs/linkdin.svg"),
-                    ],
-                  )
+
+
+
                 ],
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }

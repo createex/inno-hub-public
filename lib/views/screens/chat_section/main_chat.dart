@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/chat_section/chatroom_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class MainChatScreen extends StatelessWidget {
@@ -25,7 +27,7 @@ class MainChatScreen extends StatelessWidget {
                 child: Text(
                   "Chat",
                   style: AppTextStyles.boldTextStyle
-                      .copyWith(color: AppColors.primaryColor, fontSize: 18.px),
+                      .copyWith(color: AppColors.headingColor, fontSize: 18.px),
                 )),
             SizedBox(
               height: 1.8.h,
@@ -36,32 +38,46 @@ class MainChatScreen extends StatelessWidget {
               itemCount: 4,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 1.6.h, vertical: 1.5.h),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: CircleAvatar(
-                      radius: 3.h,
-                      child: Image.asset(
-                        "assets/pngs/profile.png",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    title: Text(
-                      "Devon Lane",
-                      style: AppTextStyles.boldTextStyle.copyWith(
-                          color: AppColors.headingColor, fontSize: 14.px),
-                    ),
-                    subtitle: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.",
-                      style: AppTextStyles.regularStyle.copyWith(
-                          color: AppColors.headingColor, fontSize: 11.px),
-                    ),
-                    trailing:
-                    Text(
-                      "4:10 am",
-                      style: AppTextStyles.regularStyle.copyWith(
-                          color: AppColors.headingColor, fontSize: 12.px),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 1.6.h,
+                  ),
+                  child: GestureDetector(
+                    onTap: (){
+                      Get.to(()=> ChatroomScreen(
+                        userName:"Devon Lane" ,
+                      ));
+                    },
+                    child: Column(
+                      children: [
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: CircleAvatar(
+                            radius: 3.h,
+                            child: Image.asset(
+                              "assets/pngs/profile.png",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          title: Text(
+                            "Devon Lane",
+                            style: AppTextStyles.boldTextStyle.copyWith(
+                                color: AppColors.headingColor, fontSize: 14.px),
+                          ),
+                          subtitle: Text(
+                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua.",
+                            style: AppTextStyles.regularStyle.copyWith(
+                                color: AppColors.headingColor, fontSize: 11.px),
+                          ),
+                          trailing: Text(
+                            "4:10 am",
+                            style: AppTextStyles.regularStyle.copyWith(
+                                color: AppColors.headingColor, fontSize: 12.px),
+                          ),
+                        ),
+                        Divider(
+                          color: AppColors.shadowColor,
+                        )
+                      ],
                     ),
                   ),
                 );

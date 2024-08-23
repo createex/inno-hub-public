@@ -5,6 +5,7 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 Widget customTextFormField({
   TextEditingController? controller,
   String? title,
@@ -71,6 +72,7 @@ Widget customTextFormField({
     ),
   );
 }
+
 Widget customTextFormField1(
     {String? title,
     TextEditingController? controller,
@@ -83,8 +85,8 @@ Widget customTextFormField1(
     String? prefix,
     Widget? prefixIcons,
     bool? readOnly,
-      double? width,
-      double? height,
+    double? width,
+    double? height,
     Callback? onTap}) {
   return TextFormField(
     onTap: onTap,
@@ -111,20 +113,18 @@ Widget customTextFormField1(
         fontWeight: FontWeight.w400,
         fontFamily: 'regular',
       ),
-
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: focusBorderColor ?? AppColors.primaryColor),
+        borderSide:
+            BorderSide(color: focusBorderColor ?? AppColors.primaryColor),
         borderRadius: BorderRadius.circular(3.h),
       ),
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: AppColors.borderColor,
-            width: 1.3),
+        borderSide: BorderSide(color: AppColors.borderColor, width: 1.3),
         borderRadius: BorderRadius.circular(3.h),
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(3.h),
-        borderSide:  BorderSide(color: AppColors.borderColor,
-        width: 1.3),
+        borderSide: BorderSide(color: AppColors.borderColor, width: 1.3),
       ),
       filled: true,
       fillColor: bgColor ?? AppColors.whiteColor,
@@ -132,21 +132,24 @@ Widget customTextFormField1(
     ),
   );
 }
+
 //ElevatedButton
 Widget customElevatedButton(
     {Widget? title,
-      Color? bgColor,
-      double? width,
-      double? borderRadius,
-      Callback? onTap}) {
+    Color? bgColor,
+    Color? borderColor,
+    double? width,
+    double? borderRadius,
+    Callback? onTap}) {
   return ElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
         shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 4.h))),
+            borderRadius: BorderRadius.circular(borderRadius ?? 4.h),
+            side: BorderSide(
+                color: borderColor ?? Colors.transparent, width: 2))),
         backgroundColor:
-        WidgetStatePropertyAll(bgColor ?? AppColors.primaryColor),
-
+            WidgetStatePropertyAll(bgColor ?? AppColors.primaryColor),
       ),
       child: title);
 }

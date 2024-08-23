@@ -22,15 +22,15 @@ class ResetPassword extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
-      body: Container(
-        decoration: const BoxDecoration(
-          image:   DecorationImage(
-                image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)
-        ),
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            image:   DecorationImage(
+                  image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)
+          ),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

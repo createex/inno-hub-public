@@ -18,7 +18,7 @@ class AppTextStyles{
   static TextStyle hintTextStyle= TextStyle(
       color: AppColors.secondaryColor,
       fontSize: 14.px,
-      fontWeight: FontWeight.w400);
+      fontWeight: FontWeight.w600);
   static TextStyle textSignUpWhite=TextStyle(fontSize: 14.px,fontWeight: FontWeight.w500, color: Colors.white);
   static TextStyle textSignUpWhite1=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color: Colors.white);
   static TextStyle textExploreBlack=TextStyle(fontSize: 18.px,fontWeight: FontWeight.w400, color:AppColors.blackColor);

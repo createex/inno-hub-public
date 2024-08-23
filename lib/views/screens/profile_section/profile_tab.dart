@@ -1,54 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
-import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
+import 'package:in_hub/views/screens/profile_section/profile_screen.dart';
+import 'package:in_hub/views/screens/setting_section/setting_screen.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../controllers/utils/app_colors.dart';
-import 'feed_bar.dart';
-import 'screens/search_section/search_screen.dart';
+import 'empty_startup_profile.dart';
 
-class MainHomeScreen extends StatefulWidget {
-  const MainHomeScreen({super.key});
+class ProfileTabBar extends StatefulWidget {
+  const ProfileTabBar({super.key});
 
   @override
-  State<MainHomeScreen> createState() => _MainHomeScreenState();
+  State<ProfileTabBar> createState() => _ProfileTabBarState();
 }
 
-class _MainHomeScreenState extends State<MainHomeScreen> {
-final TextEditingController searchController=TextEditingController();
+class _ProfileTabBarState extends State<ProfileTabBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: Text(
+          "Profile",
+          style: AppTextStyles.boldTextStyle
+              .copyWith(color: AppColors.headingColor, fontSize: 18.px),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 2.h),
+            child: GestureDetector(
+                onTap: () {
+                  Get.to(() => SettingScreen());
+                },
+                child: SvgPicture.asset("assets/svgs/setting.svg")),
+          )
+        ],
+      ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 8.h), // Adjust spacing as needed
-          Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 2.h),
-            child: Row(
-              children: [
-                Text("InnoHub", style: AppTextStyles.textSearchPrimaryColor),
-                // getHorizontalSpace(2.w),
-                Expanded(
-                  child: SearchCustomTextFormField(
-                    onTap: (){
-                      Get.to(()=> SearchScreen());
-                    },
-                    readOnly: true,
-                    hintText: 'Search',
-                    prefixIcon: SvgPicture.asset("assets/svgs/search.svg"),
-                    controller: searchController,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 2.h), // Space before the TabBar
+          // SizedBox(height: 8.h), // Adjust spacing as needed// Space before the TabBar
           Expanded(
             child: DefaultTabController(
               length: 2, // Number of tabs
@@ -58,7 +54,8 @@ final TextEditingController searchController=TextEditingController();
                   Container(
                     width: double.infinity,
                     color: AppColors.greyColor3,
-                    child: Align(alignment:Alignment.center ,
+                    child: Align(
+                      alignment: Alignment.center,
                       child: TabBar(
                         dividerColor: Colors.transparent,
                         padding: EdgeInsets.symmetric(horizontal: 2.5.h),
@@ -73,24 +70,21 @@ final TextEditingController searchController=TextEditingController();
                         labelStyle: AppTextStyles.textPrimaryColor,
                         unselectedLabelColor: AppColors.greyColor1,
                         tabs: const [
-                          Tab(text: "Feeds"),
-                          Tab(text: "You follow"),
-
+                          Tab(text: "My Profile"),
+                          Tab(text: "Startup Profile"),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 1.h), // Space between TabBar and TabBarView
-                  const Expanded(
+                  Expanded(
                     child: TabBarView(
                       children: [
                         // Content for Tab 1
-                        FeedsScreen(),
+                        ProfileScreen(),
                         // RentedScreen(),
                         // Content for Tab 2
-                        FeedsScreen()
+                        const EmptyStartupProfile()
                         // RentedHistoryScreen(),
-
                       ],
                     ),
                   ),

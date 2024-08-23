@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../models/feed_model.dart';
-
-
+import 'screens/profile_section/other_user_profile.dart';
 class FeedsScreen extends StatefulWidget {
   const FeedsScreen({super.key});
-
   @override
   State<FeedsScreen> createState() => _FeedsScreenState();
 }
-
 class _FeedsScreenState extends State<FeedsScreen> {
   // Initialize with static data
   List<FeedsModel> data = [
     FeedsModel(
-      profileImage: 'assets/pngs/profile.png',
+      profileImage: 'assets/pngs/iqrapro.png',
       name: 'Zeeshan',
       title: 'Hello World',
       time: '2 hours ago',
       desc: 'This is the description of the post.',
-      postImage: 'assets/pngs/post.png',
+      postImage: 'assets/pngs/iqrabg.png',
     ),
     FeedsModel(
-      profileImage: 'assets/pngs/profile.png',
+      profileImage: 'assets/pngs/iqrapro.png',
       name: 'John Doe',
       title: 'Flutter is awesome!',
       time: '3 hours ago',
@@ -32,7 +29,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
       postImage: 'assets/pngs/post.png',
     ),
     FeedsModel(
-      profileImage: 'assets/pngs/profile.png',
+      profileImage: 'assets/pngs/iqrapro.png',
       name: 'Jane Doe',
       title: 'Beautiful Day',
       time: '5 hours ago',
@@ -58,24 +55,28 @@ class _FeedsScreenState extends State<FeedsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(feed.profileImage),
-                      radius: 30,
-                    ),
-                    SizedBox(width: 3.w),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(feed.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                          Text(feed.title, style: TextStyle(fontSize: 14.sp, color: Colors.grey)),
-                        ],
+                GestureDetector(onTap: () {
+                  Get.to(()=>OtherUserProfile());
+                },
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: AssetImage(feed.profileImage),
+                        radius: 30,
                       ),
-                    ),
-                    Text(feed.time, style: TextStyle(fontSize: 12.sp, color: Colors.grey)),
-                  ],
+                      SizedBox(width: 3.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(feed.name, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                            Text(feed.title, style: TextStyle(fontSize: 14.sp, color: Colors.grey)),
+                          ],
+                        ),
+                      ),
+                      Text(feed.time, style: TextStyle(fontSize: 12.sp, color: Colors.grey)),
+                    ],
+                  ),
                 ),
                 SizedBox(height: 2.h),
                 Text(feed.desc, style: TextStyle(fontSize: 14.sp)),
