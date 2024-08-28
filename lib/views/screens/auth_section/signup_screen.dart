@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 import 'package:in_hub/views/screens/profile_section/profileinformation.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
   final TextEditingController emailController = TextEditingController();
@@ -46,14 +44,7 @@ class SignUpScreen extends StatelessWidget {
                     controller: emailController,
                     title: "Email",
                   ),
-                  SizedBox(
-                    height: 1.6.h,
-                  ),
-                  customTextFormField(
-                    prefix: "assets/svgs/invitation.svg",
-                    controller: emailController,
-                    title: "Referral code",
-                  ),
+
                   SizedBox(
                     height: 1.6.h,
                   ),
@@ -70,6 +61,20 @@ class SignUpScreen extends StatelessWidget {
                     controller: confirmPasswordController,
                     title: "Confirm Password",
                   ),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 30.w),
+                    child: customTextFormField(
+                      prefix: "assets/svgs/invitation.svg",
+                      controller: emailController,
+                      title: "Referral code",
+                      suffix: "assets/svgs/referalIcon.svg",
+                      tooltipMessage: "Enter your referral code here",  // Tooltip text
+                    ),
+                  ),
+
                   SizedBox(
                     height: 2.4.h,
                   ),
@@ -113,7 +118,7 @@ class SignUpScreen extends StatelessWidget {
                   SizedBox(height: 2.h),
                   GestureDetector(
                     onTap: () {
-                      Get.back();
+                      // Get.back();
                     },
                     child: RichText(
                         text: TextSpan(children: [

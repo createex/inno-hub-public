@@ -16,10 +16,12 @@ Widget customTextFormField({
   Color? bgColor,
   Color? borderColor,
   String? prefix,
+  String? suffix,
   Widget? lineImage,
   double? width,
   double? horizentalPadding,
   double? verticalPadding,
+  String? tooltipMessage,  // Add this parameter to provide tooltip text
 }) {
   return TextFormField(
     controller: controller,
@@ -29,7 +31,7 @@ Widget customTextFormField({
     cursorColor: AppColors.primaryColor,
     decoration: InputDecoration(
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
       ),
       hintText: title ?? 'Email',
       hintStyle: AppTextStyles.hintTextStyle,
@@ -37,11 +39,11 @@ Widget customTextFormField({
       fillColor: bgColor ?? AppColors.whiteColor,
       isCollapsed: true,
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
         borderSide: BorderSide(color: AppColors.primaryColor),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
         borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
       ),
       contentPadding: EdgeInsets.symmetric(
@@ -69,9 +71,24 @@ Widget customTextFormField({
           ],
         ),
       ),
+      suffixIcon: suffix != null
+          ? GestureDetector(
+        onTap: () {
+          // Handle tap on the suffix icon (tooltip is shown automatically)
+        },
+        child: Tooltip(
+          message: tooltipMessage ?? "Tooltip",  // Display the tooltip message
+          child: Padding(
+            padding: EdgeInsets.only(right: horizentalPadding ?? 1.2.h),
+            child: SvgPicture.asset(suffix),
+          ),
+        ),
+      )
+          : null,
     ),
   );
 }
+
 
 Widget customTextFormField1(
     {String? title,
@@ -116,14 +133,14 @@ Widget customTextFormField1(
       focusedBorder: OutlineInputBorder(
         borderSide:
             BorderSide(color: focusBorderColor ?? AppColors.primaryColor),
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppColors.borderColor, width: 1.3),
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(3.h),
+        borderRadius: BorderRadius.circular(1.h),
         borderSide: BorderSide(color: AppColors.borderColor, width: 1.3),
       ),
       filled: true,
