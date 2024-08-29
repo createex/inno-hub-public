@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/views/screens/chat_section/main_chat.dart';
+import 'package:in_hub/views/screens/profile_section/empty_startup_profile.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../controllers/utils/app_colors.dart';
 import 'main_home_screen.dart';
@@ -109,39 +110,26 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 label: "",
                 icon: _buildNavItem(
                   icon: Icon(
-                    Icons.chat,
+                    Icons.notifications,
                     color: currentIndex.value == 2
                         ? AppColors.primaryColor
                         : AppColors.blackColor5,
                   ),
-                  label: "Chat",
+                  label: "Notification",
                   isSelected: currentIndex.value == 2,
                 ),
               ),
               BottomNavigationBarItem(
                 label: "",
                 icon: _buildNavItem(
-                  icon: Icon(
-                    Icons.notifications,
+                  icon: SvgPicture.asset(
+                    'assets/svgs/startup_icon.svg',
                     color: currentIndex.value == 3
                         ? AppColors.primaryColor
                         : AppColors.blackColor5,
                   ),
-                  label: "Notification",
+                  label: "Startup",
                   isSelected: currentIndex.value == 3,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "",
-                icon: _buildNavItem(
-                  icon: Icon(
-                    Icons.person_sharp,
-                    color: currentIndex.value == 4
-                        ? AppColors.primaryColor
-                        : AppColors.blackColor5,
-                  ),
-                  label: "Profile",
-                  isSelected: currentIndex.value == 4,
                 ),
               ),
             ],
@@ -152,12 +140,11 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 return const MainHomeScreen();
               case 1:
                 return const DiscoverScreen();
+
               case 2:
-                return const MainChatScreen();
+                return NotiFicationScreen();
               case 3:
-                return const NotiFicationScreen();
-              case 4:
-                return const ProfileTabBar();
+                return const EmptyStartupProfile();
               default:
                 return const SizedBox();
             }

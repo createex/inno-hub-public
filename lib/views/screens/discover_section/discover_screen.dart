@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/chat_section/main_chat.dart';
 import 'package:in_hub/views/screens/discover_section/connection_request.dart';
 import 'package:in_hub/views/screens/discover_section/manage_network.dart';
 import 'package:in_hub/views/screens/discover_section/similar_interest.dart';
@@ -51,7 +52,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0, right: 1),
-                      child: Image.asset('assets/pngs/bxs_chat.png'),
+                      child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => const MainChatScreen());
+                          },
+                          child: Image.asset('assets/pngs/bxs_chat.png')),
                     )
                   ],
                 ),

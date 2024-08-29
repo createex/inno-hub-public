@@ -42,10 +42,10 @@ class MainChatScreen extends StatelessWidget {
                     horizontal: 1.6.h,
                   ),
                   child: GestureDetector(
-                    onTap: (){
-                      Get.to(()=> ChatroomScreen(
-                        userName:"Devon Lane" ,
-                      ));
+                    onTap: () {
+                      Get.to(() => ChatroomScreen(
+                            userName: "Devon Lane",
+                          ));
                     },
                     child: Column(
                       children: [

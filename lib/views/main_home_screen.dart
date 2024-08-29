@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/chat_section/main_chat.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -49,7 +50,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 1),
-                  child: Image.asset('assets/pngs/bxs_chat.png'),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.to(() => MainChatScreen());
+                      },
+                      child: Image.asset('assets/pngs/bxs_chat.png')),
                 )
               ],
             ),
