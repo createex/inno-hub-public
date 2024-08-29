@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/custom_widgets/app_keys.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -18,32 +19,47 @@ class MainHomeScreen extends StatefulWidget {
 }
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
-final TextEditingController searchController=TextEditingController();
+  final TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 8.h), // Adjust spacing as needed
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 2.h),
+            padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: Row(
               children: [
-                Text("InnoHub", style: AppTextStyles.textSearchPrimaryColor),
+                GestureDetector(onTap:(){
+                  AppKeys.scaffoldKey.currentState?.openDrawer();
+
+                },
+                    child: Image.asset('assets/pngs/Ellipse 41.png')),
+                SizedBox(
+                  width: 2.5.w,
+                ),
                 // getHorizontalSpace(2.w),
                 Expanded(
                   child: SearchCustomTextFormField(
-                    onTap: (){
-                      Get.to(()=> SearchScreen());
+                    onTap: () {
+                      Get.to(() => SearchScreen());
                     },
                     readOnly: true,
                     hintText: 'Search',
-                    prefixIcon: SvgPicture.asset("assets/svgs/search.svg"),
                     controller: searchController,
+                    suffixIcon: SvgPicture.asset("assets/svgs/search.svg"),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 1),
+                  child: Image.asset('assets/pngs/bxs_chat.png'),
+                )
               ],
             ),
           ),
@@ -58,7 +74,8 @@ final TextEditingController searchController=TextEditingController();
                   Container(
                     width: double.infinity,
                     color: AppColors.greyColor3,
-                    child: Align(alignment:Alignment.center ,
+                    child: Align(
+                      alignment: Alignment.center,
                       child: TabBar(
                         dividerColor: Colors.transparent,
                         padding: EdgeInsets.symmetric(horizontal: 2.5.h),
@@ -75,7 +92,6 @@ final TextEditingController searchController=TextEditingController();
                         tabs: const [
                           Tab(text: "Feeds"),
                           Tab(text: "You follow"),
-
                         ],
                       ),
                     ),
@@ -90,7 +106,6 @@ final TextEditingController searchController=TextEditingController();
                         // Content for Tab 2
                         FeedsScreen()
                         // RentedHistoryScreen(),
-
                       ],
                     ),
                   ),

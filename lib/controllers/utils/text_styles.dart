@@ -22,7 +22,7 @@ class AppTextStyles{
   static TextStyle textSignUpWhite=TextStyle(fontSize: 14.px,fontWeight: FontWeight.w500, color: Colors.white);
   static TextStyle textSignUpWhite1=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color: Colors.white);
   static TextStyle textExploreBlack=TextStyle(fontSize: 18.px,fontWeight: FontWeight.w400, color:AppColors.blackColor);
-  static TextStyle textStartBlack=TextStyle(fontSize: 16.px,fontWeight: FontWeight.w400, color:AppColors.blackColor);
+  static TextStyle textStartBlack=TextStyle(fontSize: 16.px,fontWeight: FontWeight.w600, color:AppColors.blackColor);
   static TextStyle textWelcomeBlack=TextStyle(fontSize: 18.px,fontWeight: FontWeight.w500, color:AppColors.blackColor);
   static TextStyle textAccountBlack=TextStyle(fontSize: 12.px,fontWeight: FontWeight.w500, color:AppColors.blackColor1);
   static TextStyle textAccountBlack2=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color:AppColors.blackColor1);
@@ -40,7 +40,7 @@ class AppTextStyles{
   static TextStyle textSearchOrange1=TextStyle(fontSize: 20.px,fontWeight: FontWeight.w700, color:AppColors.orangeColor1);
   static TextStyle textSearchPrimaryColor=TextStyle(fontSize: 20.px,fontWeight: FontWeight.w700, color:AppColors.primaryColor);
   static TextStyle textSearchOrange2=TextStyle(fontSize: 16.px,fontWeight: FontWeight.w500, color:AppColors.orangeColor1);
-  static TextStyle textPerfectBlack6=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color:AppColors.blackColor6);
+  static TextStyle textPerfectBlack6=TextStyle(fontSize: 14.px,fontWeight: FontWeight.w400, color:AppColors.blackColor6);
   static TextStyle textSeeAllOrange1=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w500, color:AppColors.orangeColor1);
   static TextStyle textAudioBlack=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w800, color:AppColors.blackColor);
   static TextStyle textConstructionBlack5=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color:AppColors.blackColor5);

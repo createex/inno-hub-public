@@ -5,6 +5,7 @@ import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 import 'package:in_hub/views/screens/profile_section/profileinformation.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
   final TextEditingController emailController = TextEditingController();
@@ -23,7 +24,8 @@ class SignUpScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)),
+                    image: AssetImage("assets/pngs/bg.png"),
+                    fit: BoxFit.cover)),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.h),
               child: Column(
@@ -44,7 +46,6 @@ class SignUpScreen extends StatelessWidget {
                     controller: emailController,
                     title: "Email",
                   ),
-
                   SizedBox(
                     height: 1.6.h,
                   ),
@@ -71,10 +72,10 @@ class SignUpScreen extends StatelessWidget {
                       controller: emailController,
                       title: "Referral code",
                       suffix: "assets/svgs/referalIcon.svg",
-                      tooltipMessage: "Enter your referral code here",  // Tooltip text
+                      tooltipMessage:
+                          "Enter your referral code here to unlock exclusive benefits. Share your code with friends to earn rewards!", // Tooltip text
                     ),
                   ),
-
                   SizedBox(
                     height: 2.4.h,
                   ),
@@ -122,16 +123,13 @@ class SignUpScreen extends StatelessWidget {
                     },
                     child: RichText(
                         text: TextSpan(children: [
-                          TextSpan(
-                              text: 'Already have an Account?  ',
-                              style: AppTextStyles.regularStyle
-                                  .copyWith(color: AppColors.secondaryColor)),
-                          TextSpan(text: 'Login', style: AppTextStyles.regularStyle)
-                        ])),
+                      TextSpan(
+                          text: 'Already have an Account?  ',
+                          style: AppTextStyles.regularStyle
+                              .copyWith(color: AppColors.secondaryColor)),
+                      TextSpan(text: 'Login', style: AppTextStyles.regularStyle)
+                    ])),
                   ),
-
-
-
                 ],
               ),
             )),
