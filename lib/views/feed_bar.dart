@@ -39,7 +39,6 @@ class _FeedsScreenState extends State<FeedsScreen> {
       postImage: 'assets/pngs/post.png',
     ),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +92,8 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   SizedBox(height: 2.h),
                   Text(feed.desc, style: TextStyle(fontSize: 14.sp)),
                   SizedBox(height: 2.h),
-                  Image.asset(feed.postImage),
+                  ClipRRect(borderRadius: BorderRadius.circular(12),
+                      child: Image.asset(feed.postImage,)),
                   SizedBox(height: 2.h),
                   Row(
                     children: [

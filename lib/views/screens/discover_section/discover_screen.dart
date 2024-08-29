@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/chat_section/main_chat.dart';
-import 'package:in_hub/views/screens/discover_section/connection_request.dart';
 import 'package:in_hub/views/screens/discover_section/manage_network.dart';
-import 'package:in_hub/views/screens/discover_section/similar_interest.dart';
 import 'package:in_hub/views/screens/search_section/search_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
+import '../custom_widgets/app_keys.dart';
 import '../custom_widgets/custom_textformfield.dart';
 
 class DiscoverScreen extends StatefulWidget {
@@ -21,9 +19,12 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         color: AppColors.greyColor2,
         child: SingleChildScrollView(
@@ -34,7 +35,11 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 2.h),
                 child: Row(
                   children: [
-                    Image.asset('assets/pngs/Ellipse 41.png'),
+                    GestureDetector(
+                        onTap: () {
+                          AppKeys.scaffoldKey.currentState?.openDrawer();
+                        },
+                        child: Image.asset('assets/pngs/Ellipse 41.png')),
                     SizedBox(
                       width: 2.5.w,
                     ),
@@ -183,7 +188,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                   ),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 color: AppColors.greyColor7,
                               )
                             ],
@@ -204,7 +209,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
                                     onPressed: () {
-                                      Get.to(() => ManageNetworkScreen());
+                                      Get.to(() => const ManageNetworkScreen());
                                     },
                                     icon: const Icon(Icons.arrow_forward))),
                           ),

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/discover_section/follow_screen.dart';
 import 'package:in_hub/views/screens/discover_section/people_followed_you_screen.dart';
+import 'package:in_hub/views/screens/discover_section/start_up_follow_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ManageNetworkScreen extends StatelessWidget {
@@ -33,16 +35,21 @@ class ManageNetworkScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: Row(
                 children: [
-                  Text(
-                    "People you follow",
-                    style: AppTextStyles.textNameBlack7,
+                  GestureDetector(onTap:(){
+                    Get.to(() => const FollowScreen());
+
+                  },
+                    child: Text(
+                      "People you follow",
+                      style: AppTextStyles.textNameBlack7,
+                    ),
                   ),
                   Expanded(
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: IconButton(
                             onPressed: () {
-                              Get.to(() => ManageNetworkScreen());
+                              Get.to(() => const FollowScreen());
                             },
                             icon: const Icon(Icons.arrow_forward))),
                   ),
@@ -56,9 +63,14 @@ class ManageNetworkScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: Row(
                 children: [
-                  Text(
-                    "People followed you",
-                    style: AppTextStyles.textNameBlack7,
+                  GestureDetector(onTap:(){
+                    Get.to(() => PeopleFollowedYouScreen());
+
+                  },
+                    child: Text(
+                      "People followed you",
+                      style: AppTextStyles.textNameBlack7,
+                    ),
                   ),
                   Expanded(
                     child: Align(
@@ -79,16 +91,21 @@ class ManageNetworkScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 2.w),
               child: Row(
                 children: [
-                  Text(
-                    "Start Ups you follow",
-                    style: AppTextStyles.textNameBlack7,
+                  GestureDetector(onTap:(){
+                    Get.to(() => const StartUpFollowScreen());
+
+                  },
+                    child: Text(
+                      "Start Ups you follow",
+                      style: AppTextStyles.textNameBlack7,
+                    ),
                   ),
                   Expanded(
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: IconButton(
                             onPressed: () {
-                              Get.to(() => ManageNetworkScreen());
+                              Get.to(() => const StartUpFollowScreen());
                             },
                             icon: const Icon(Icons.arrow_forward))),
                   ),

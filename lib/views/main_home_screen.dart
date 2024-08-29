@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/custom_widgets/app_keys.dart';
 import 'package:in_hub/views/screens/chat_section/main_chat.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
-
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../controllers/utils/app_colors.dart';
 import 'feed_bar.dart';
 import 'screens/search_section/search_screen.dart';
@@ -20,9 +19,12 @@ class MainHomeScreen extends StatefulWidget {
 
 class _MainHomeScreenState extends State<MainHomeScreen> {
   final TextEditingController searchController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +34,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: Row(
               children: [
-                Image.asset('assets/pngs/Ellipse 41.png'),
+                GestureDetector(
+                    onTap: () {
+                      AppKeys.scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: Image.asset('assets/pngs/Ellipse 41.png')),
                 SizedBox(
                   width: 2.5.w,
                 ),
