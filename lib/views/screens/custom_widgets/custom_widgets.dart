@@ -19,7 +19,7 @@ Widget customTextFormField({
   String? suffix,
   Widget? lineImage,
   double? width,
-  double? horizentalPadding,
+  double? horizontalPadding,
   double? verticalPadding,
   String? tooltipMessage,  // Add this parameter to provide tooltip text
 }) {
@@ -47,7 +47,7 @@ Widget customTextFormField({
         borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
       ),
       contentPadding: EdgeInsets.symmetric(
-        horizontal: horizentalPadding ?? 1.2.h,
+        horizontal: horizontalPadding ?? 1.2.h,
         vertical: verticalPadding ?? 1.3.h,
       ),
       prefixIcon: SizedBox(
@@ -79,7 +79,7 @@ Widget customTextFormField({
         child: Tooltip(
           message: tooltipMessage ?? "Tooltip",  // Display the tooltip message
           child: Padding(
-            padding: EdgeInsets.only(right: horizentalPadding ?? 1.2.h),
+            padding: EdgeInsets.only(right: horizontalPadding ?? 1.2.h),
             child: SvgPicture.asset(suffix),
           ),
         ),
