@@ -5,6 +5,7 @@ import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/auth_section/login_screen.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
+import 'package:in_hub/views/screens/profile_section/profile_info_screen_2.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ProfessionalInformation extends StatelessWidget {
@@ -26,7 +27,8 @@ class ProfessionalInformation extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/pngs/bg.png"), fit: BoxFit.cover)),
+                  image: AssetImage("assets/pngs/background_image.png"),
+                  fit: BoxFit.cover)),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.h),
             child: SingleChildScrollView(
@@ -34,14 +36,37 @@ class ProfessionalInformation extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 41.h,
+                    height: 8.h,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.2,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/pngs/app_logo.png"),
+                            fit: BoxFit.contain)),
+                  ),
+                  SizedBox(
+                    height: 1.h,
                   ),
                   Text(
                     "Profile Information",
                     style: AppTextStyles.boldTextStyle,
                   ),
                   SizedBox(
-                    height: 5.h,
+                    height: 2.h,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: AssetImage('assets/pngs/user_icon.png'))),
+                  ),
+                  SizedBox(
+                    height: 2.h,
                   ),
                   Row(
                     children: [
@@ -58,7 +83,6 @@ class ProfessionalInformation extends StatelessWidget {
                       Expanded(
                         child: customTextFormField(
                           prefix: "assets/svgs/nameicon.svg",
-
                           controller: lastController,
                           title: "last name",
                         ),
@@ -66,117 +90,28 @@ class ProfessionalInformation extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    height: 1.6.h,
+                    height: 2.h,
                   ),
-                  customTextFormField1(
-
-                    prefix: "",
-                      controller: jobController,
-                      title: "Job title",
-                     ),
+                  customTextFormField(
+                    title: "Username",
+                  ),
                   SizedBox(
                     height: 1.6.h,
                   ),
-                  Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.symmetric(vertical: .4.h),
-                      decoration: BoxDecoration(
-                          color: AppColors.whiteColor,
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: AppColors.shadowColor, width: .2.h))),
-                      child: Text(
-                        "Select Interests",
-                        style: AppTextStyles.boldTextStyle.copyWith(
-                            color: AppColors.headingColor, fontSize: 18.px),
-                      )),
-                  SizedBox(
-                    height: 1.4.h,
+                  customTextFormField(
+                    title: "Phone number",
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      isOpen.value = !isOpen.value;
-                    },
-                    child: Obx(
-                      () => Container(
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 1.6.h, horizontal: 1.6.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(1.3.h),
-                              color: AppColors.whiteColor,
-                              border: Border.all(
-                                  color: AppColors.shadowColor, width: .2.h)),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Skills",
-                                    style: AppTextStyles.hintTextStyle,
-                                  ),
-                                  SvgPicture.asset("assets/svgs/arrowdown.svg")
-                                ],
-                              ),
-                              isOpen.value
-                                  ? SizedBox(
-                                      height: 2.h,
-                                    )
-                                  : const SizedBox.shrink(),
-                              isOpen.value
-                                  ? ListView.builder(
-                                      shrinkWrap: true,
-                                      padding: EdgeInsets.zero,
-                                      itemCount: 3,
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 1.h),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              isSelected.value = index;
-                                            },
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "Interest ${index + 1}",
-                                                  style: AppTextStyles
-                                                      .hintTextStyle,
-                                                ),
-                                                Obx(
-                                                  () => Container(
-                                                    height: 2.5.h,
-                                                    width: 2.5.h,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(.4.h),
-                                                        border: Border.all(
-                                                            color: AppColors
-                                                                .greyColor)),
-                                                    child: isSelected.value ==
-                                                            index
-                                                        ? SvgPicture.asset(
-                                                            "assets/svgs/tick.svg")
-                                                        : const SizedBox
-                                                            .shrink(),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    )
-                                  : const SizedBox.shrink()
-                            ],
-                          )),
-                    ),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
+                  customTextFormField(
+                    title: "Country",
+                  ),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
+                  customTextFormField(
+                    title: "City",
                   ),
                   SizedBox(
                     height: 3.h,
@@ -187,7 +122,7 @@ class ProfessionalInformation extends StatelessWidget {
                         child: customElevatedButton(
                             bgColor: AppColors.primaryColor,
                             onTap: () {
-                              Get.to(()=>LoginScreen());
+                              Get.to(() => ProfessionalInformation2());
                               // if (emailController.text.isEmpty) {
                               //   ScaffoldMessenger.of(context).showSnackBar(
                               //       const SnackBar(
@@ -232,10 +167,10 @@ class ProfessionalInformation extends StatelessWidget {
                             //         'Next',
                             //         style: AppTextStyles.buttonTextStyle,
                             //       )
-                            title:Text(
+                            title: Text(
                               'Next',
                               style: AppTextStyles.buttonTextStyle,
-                            )  ),
+                            )),
                       ),
                     ],
                   ),

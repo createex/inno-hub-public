@@ -21,7 +21,7 @@ Widget customTextFormField({
   double? width,
   double? horizentalPadding,
   double? verticalPadding,
-  String? tooltipMessage,  // Add this parameter to provide tooltip text
+  String? tooltipMessage, // Add this parameter to provide tooltip text
 }) {
   return TextFormField(
     controller: controller,
@@ -73,22 +73,37 @@ Widget customTextFormField({
       ),
       suffixIcon: suffix != null
           ? GestureDetector(
-        onTap: () {
-          // Handle tap on the suffix icon (tooltip is shown automatically)
-        },
-        child: Tooltip(
-          message: tooltipMessage ?? "Tooltip",  // Display the tooltip message
-          child: Padding(
-            padding: EdgeInsets.only(right: horizentalPadding ?? 1.2.h),
-            child: SvgPicture.asset(suffix),
-          ),
-        ),
-      )
+              onTap: () {
+                // Handle tap on the suffix icon (tooltip is shown automatically)
+              },
+              child: Tooltip(
+                preferBelow: false, // Aligns the tooltip above the widget
+                verticalOffset: 10,
+                // Adjusts the vertical position
+                margin: const EdgeInsets.only(left: 200, right: 10),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
+                  color: Color(0xFFCEF3DB),
+                ),
+                message: tooltipMessage ?? "Tooltip",
+                textStyle: const TextStyle(
+                    color: Colors.black), // Display the tooltip message
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 12),
+                  child: SvgPicture.asset(
+                    fit: BoxFit.contain,
+                    suffix,
+                  ),
+                ),
+              ),
+            )
           : null,
     ),
   );
 }
-
 
 Widget customTextFormField1(
     {String? title,
@@ -162,7 +177,7 @@ Widget customElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
         shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 4.h),
+            borderRadius: BorderRadius.circular(borderRadius ?? 1.h),
             side: BorderSide(
                 color: borderColor ?? Colors.transparent, width: 2))),
         backgroundColor:

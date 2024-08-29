@@ -44,13 +44,26 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Obx(() => Scaffold(
-          floatingActionButton: GestureDetector(
-              onTap: () {
-                Get.to(() => CreatePost());
-              },
-              child: currentIndex.value == 0
-                  ? SvgPicture.asset("assets/svgs/floatingaction.svg")
-                  : const SizedBox.shrink()),
+          floatingActionButton: currentIndex.value == 0
+              ? SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: FloatingActionButton(
+                    shape: const CircleBorder(),
+                    backgroundColor: AppColors.primaryColor,
+                    onPressed: () {
+                      Get.to(() => CreatePost());
+                    },
+                    child: currentIndex.value == 0
+                        ? const Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 30,
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                )
+              : SizedBox(),
           backgroundColor: Colors.white,
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -138,7 +151,7 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
               case 0:
                 return const MainHomeScreen();
               case 1:
-              return const DiscoverScreen();
+                return const DiscoverScreen();
               case 2:
                 return const MainChatScreen();
               case 3:

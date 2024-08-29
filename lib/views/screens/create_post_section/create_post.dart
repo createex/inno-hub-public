@@ -30,23 +30,7 @@ class CreatePost extends StatelessWidget {
                 SizedBox(
                   height: 6.h,
                 ),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.h),
-                    decoration: BoxDecoration(
-                        color: descriptionController.text.isNotEmpty
-                            ? AppColors.primaryColor
-                            : const Color(0xff787878).withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(3.h)),
-                    child: Text(
-                      "Post",
-                      style: AppTextStyles.buttonTextStyle
-                          .copyWith(color: AppColors.whiteColor),
-                    ),
-                  ),
-                ),
+                Align(alignment: Alignment.topRight, child: Icon(Icons.close)),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -79,7 +63,7 @@ class CreatePost extends StatelessWidget {
                       border: InputBorder.none,
                       hintText: "Type here",
                       hintStyle: TextStyle(
-                          fontSize: 16.px,
+                          fontSize: 14.px,
                           color: const Color(0xff787878),
                           fontWeight: FontWeight.w700)),
                 ),
@@ -109,20 +93,22 @@ class CreatePost extends StatelessWidget {
                 //     ),
                 //   ),
                 // ),
-                createPostController.image.value==null?const SizedBox.shrink():      Container(
-                  height: 26.h,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: FileImage(
-                            File(createPostController.image.value!.path),
-                          ),
-                          fit: BoxFit.cover),
-                      color: AppColors.greyColor,
-                      borderRadius: BorderRadius.circular(2.h)),
-                ),
+                createPostController.image.value == null
+                    ? const SizedBox.shrink()
+                    : Container(
+                        height: 26.h,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: FileImage(
+                                  File(createPostController.image.value!.path),
+                                ),
+                                fit: BoxFit.cover),
+                            color: AppColors.greyColor,
+                            borderRadius: BorderRadius.circular(2.h)),
+                      ),
                 const Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     GestureDetector(
                         onTap: () {
@@ -140,6 +126,25 @@ class CreatePost extends StatelessWidget {
                       width: 1.5.h,
                     ),
                     SvgPicture.asset("assets/svgs/videoicon.svg"),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 2.h, vertical: 1.h),
+                          decoration: BoxDecoration(
+                              color: descriptionController.text.isNotEmpty
+                                  ? AppColors.primaryColor
+                                  : const Color(0xff787878).withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(3.h)),
+                          child: Text(
+                            "Post",
+                            style: AppTextStyles.buttonTextStyle
+                                .copyWith(color: AppColors.whiteColor),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(
