@@ -5,14 +5,12 @@ import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'startup_profile.dart';
-
 class CreateStartupProfile extends StatelessWidget {
   const CreateStartupProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 1,
         shadowColor: AppColors.shadowColor,
@@ -30,142 +28,103 @@ class CreateStartupProfile extends StatelessWidget {
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text(
-          'Create Startup Profile',
+          'Edit Startup Profile',
           style: AppTextStyles.buttonTextStyle.copyWith(
-              fontSize: 20.px,
-              fontWeight: FontWeight.w600,
-              color: AppColors.headingColor),
+            fontSize: 20.px,
+            fontWeight: FontWeight.w600,
+            color: AppColors.headingColor,
+          ),
         ),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.height,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.h),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 4.4.h,
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4.h),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 4.h),
+              Text("Name", style: TextStyle(fontWeight: FontWeight.w500)),
+              SizedBox(height: 1.h),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Username", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Company Overview", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Challenges", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Vision", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Looking for", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Product status", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Technology", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Market and Customers", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Target Market", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Company size", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Founding and Growth", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Founding Stage", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Investor Stage", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 1.5.h),
+
+              Text("Team", style: TextStyle(fontWeight: FontWeight.w500)),
+              customTextFormFieldProfile(title: ""),
+              SizedBox(height: 4.h),
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 6.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: customElevatedButton(
+                        onTap: () {
+                          // Add your functionality here
+                        },
+                        title: Text(
+                          "Create Profile",
+                          style: AppTextStyles.buttonTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                CircleAvatar(
-                  backgroundColor: AppColors.whiteColor,
-                  radius: 6.h,
-                  child: Icon(
-                    Icons.person,
-                    size: 5.h,
-                    color: AppColors.greyColor,
-                  ),
-                ),
-                SizedBox(
-                  height: 4.h,
-                ),
-                TextField(
-                    readOnly: false,
-                    keyboardType: TextInputType.text,
-                    cursorColor: AppColors.primaryColor,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(3.h),
-                      ),
-                      hintText: 'Email',
-                      hintStyle: AppTextStyles.hintTextStyle,
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      isCollapsed: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.primaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.borderColor),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 2.h,
-                        vertical: 1.3.h,
-                      ),
-                    )),
-                SizedBox(
-                  height: 1.5.h,
-                ),
-                TextField(
-                    readOnly: false,
-                    keyboardType: TextInputType.text,
-                    cursorColor: AppColors.primaryColor,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(3.h),
-                      ),
-                      hintText: 'Industry',
-                      hintStyle: AppTextStyles.hintTextStyle,
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      isCollapsed: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.primaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.borderColor),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 2.h,
-                        vertical: 1.3.h,
-                      ),
-                    )),
-                SizedBox(
-                  height: 1.5.h,
-                ),
-                TextField(
-                    maxLines: 4,
-                    readOnly: false,
-                    keyboardType: TextInputType.text,
-                    cursorColor: AppColors.primaryColor,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(3.h),
-                      ),
-                      hintText: 'Description',
-                      hintStyle: AppTextStyles.hintTextStyle,
-                      filled: true,
-                      fillColor: AppColors.whiteColor,
-                      isCollapsed: true,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.primaryColor),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(1.4.h),
-                        borderSide: BorderSide(color: AppColors.borderColor),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 2.h,
-                        vertical: 2.h,
-                      ),
-                    )),
-                SizedBox(
-                  height: 4.h,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 6.h),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: customElevatedButton(
-                          onTap: () {
-                            Get.to(()=>StartUpProfile());
-                          },
-                            title: Text("Create Profile",
-                                style: AppTextStyles.buttonTextStyle)),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(height: 16),
+            ],
           ),
         ),
       ),

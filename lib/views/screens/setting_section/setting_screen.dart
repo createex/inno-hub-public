@@ -13,14 +13,33 @@ class SettingScreen extends StatelessWidget {
     "Change password",
     "In-App Notifications",
     "Email Notifications",
-    "Manage Invitations"
+    "Delete Account"
   ].obs;
   final RxList<String> images = <String>[
     "assets/svgs/password.svg",
     "assets/svgs/inappnotification.svg",
     "assets/svgs/emailnotification.svg",
-    "assets/svgs/invitation.svg"
+    "assets/svgs/profileIcon.svg"
   ].obs;
+  void navigate(int index) {
+    switch (index) {
+      case 0:
+      // Get.to(() => const ManageInvitation()); // Replace with actual screen
+        break;
+      case 1:
+        Get.to(() => const ManageInvitation()); // Replace with actual screen
+
+        break;
+      case 2:
+        Get.to(() => SettingScreen()); // Replace with actual screen
+        break;
+    // Add more cases for additional screens
+      default:
+      // Get.to(() => DefaultScreen()); // A fallback screen if needed
+        break;
+    }
+  }
+
   final RxList<bool> isSelected = <bool>[true, false].obs;
 
   @override
@@ -65,7 +84,8 @@ class SettingScreen extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: index == 0 ? 0.h : 1.h),
                   child: GestureDetector(
                     onTap: (){
-                      Get.to(()=>const ManageInvitation());
+                      // Get.to(()=>const ManageInvitation());
+                      showAlertDialog(context);
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +109,7 @@ class SettingScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            index == 1 || index == 2
+                            index == 1||index==2
                                 ? ToggleSwitch(
                                     minWidth: 2.5.h,
                                     minHeight: 2.5.h,
@@ -125,4 +145,77 @@ class SettingScreen extends StatelessWidget {
       ),
     );
   }
+  void showAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(3.5.h)),
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(3.5.h)),
+            padding: EdgeInsets.all(25.px,),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(alignment: Alignment.centerRight,
+                    child: GestureDetector(onTap: () {
+                      Navigator.pop(context);
+                    },
+                        child: const Icon(Icons.cancel_rounded,color: AppColors.redColor3,))),
+                SizedBox(height:1.h),
+                Text('Do you really want to Delete the account?',
+                    style: AppTextStyles.textRed1),
+                SizedBox(height:3.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8.px),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.redColor3,
+                            borderRadius: BorderRadius.circular(1.h),
+                          ),
+                          child: Text('Yes', style: AppTextStyles.textCancel),
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width:1.h),
+                    // Replaced custom method with SizedBox for simplicity
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: () {
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 8.px),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.greenColor,
+                            borderRadius: BorderRadius.circular(1.h),
+                          ),
+                          child: Text(
+                            'Continue',
+                            style: AppTextStyles.textCancel,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }

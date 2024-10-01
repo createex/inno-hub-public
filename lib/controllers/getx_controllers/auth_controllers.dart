@@ -1,254 +1,254 @@
-// import 'dart:async';
-// import 'dart:developer';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:in_hub/controllers/utils/preference_keys.dart';
-// import 'package:in_hub/views/screens/auth_section/login_screen.dart';
-// import 'package:in_hub/views/screens/chat_section/main_chat.dart';
-// import 'package:in_hub/views/screens/profile_section/profileinformation.dart';
-// import '../my_sharedpreference.dart';
-// import 'user_profile_controller.dart';
-//
-// class AuthController extends GetxController {
-//   final BuildContext context;
-//   AuthController({required this.context});
-//
-//   // Firebase Authentication
-//   FirebaseAuth auth = FirebaseAuth.instance;
-//   RxBool isLoading = false.obs;
-//   Timer? _verificationTimer;
-//   final UserProfileController userProfileController =
-//       Get.put(UserProfileController());
-//   Future<void> signUpUserWithEmailAndPassword({
-//     required String email,
-//     required String password,
-//   }) async {
-//     try {
-//       isLoading.value = true;
-//
-//       UserCredential credential = await auth.createUserWithEmailAndPassword(
-//         email: email,
-//         password: password,
-//       );
-//       User? user = credential.user;
-//       // var uid = FirebaseAuth.instance.currentUser!.uid;
-//       // userProfileController.storeUserData(
-//       //     name: name,
-//       //     email: email,
-//       //     password: password,
-//       //     uid: uid,
-//       //     profileImage: '',
-//       //     module: []
-//       // );
-//       if (user != null) {
-//         await user.sendEmailVerification();
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'User created successfully. Please check your email for verification.',
-//               ),
-//             ),
-//           );
-//           // Start checking email verification status
-//           _startEmailVerificationCheck();
-//         }
-//       }
-//       isLoading.value = false;
-//     } on FirebaseAuthException catch (e) {
-//       isLoading.value = false;
-//       if (e.code == 'weak-password') {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(content: Text('The password provided is too weak.')),
-//           );
-//         }
-//       } else if (e.code == 'email-already-in-use') {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//                 content: Text('The account already exists for that email.')),
-//           );
-//         }
-//       } else {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(content: Text('An unknown error occurred.')),
-//           );
-//         }
-//       }
-//     } catch (e) {
-//       isLoading.value = false;
-//       if (context.mounted) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(content: Text('An unknown error occurred.')),
-//         );
-//       }
-//     }
-//   }
-//
-// //User Login with email and Password
-//   Future<void> userLoginWithEmailAndPassword(
-//       {required email, required password}) async {
-//     try {
-//       isLoading.value = true;
-//       UserCredential credential = await auth.signInWithEmailAndPassword(
-//           email: email, password: password);
-//       isLoading.value = false;
-//       User? user = credential.user;
-//       if (user != null) {
-//         if (context.mounted) {
-//           log('userid :${user.uid}');
-//           MySharedPreferences.setString('token', user.uid);
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'User Login successfully',
-//               ),
-//             ),
-//           );
-//         }
-//         Get.to(() => const InboxMainChatScreen());
-//         MySharedPreferences.setBool(isLoggedInKey, true);
-//         final bool isLogin = MySharedPreferences.getBool(isLoggedInKey);
-//         log("isLogin or not :$isLogin");
-//         isLoading.value = false;
-//       }
-//     } on FirebaseAuthException catch (e) {
-//       if (e.code == "invalid-email") {
-//         if (context.mounted) {
-//
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'invalid-email ! Please enter valid email',
-//               ),
-//             ),
-//           );
-//         }
-//         isLoading.value = false;
-//       } else if (e.code == "wrong-password") {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'wrong-password ! Please enter valid Password',
-//               ),
-//             ),
-//           );
-//         }
-//         isLoading.value = false;
-//       } else {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'user-not-found ! Please create new Account',
-//               ),
-//             ),
-//           );
-//         }
-//         isLoading.value = false;
-//       }
-//     } catch (e) {
-//       if (context.mounted) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(
-//             content: Text(
-//               'unexpected error Occurred! Please try again',
-//             ),
-//           ),
-//         );
-//       }
-//     }
-//   }
-//
-//   //Reset Password
-//   //User Login with email and Password
-//   Future<void> resetPasswordByEmailLink({
-//     required email,
-//   }) async {
-//     try {
-//       isLoading.value = true;
-//       await auth.sendPasswordResetEmail(
-//         email: email,
-//       );
-//       isLoading.value = false;
-//       if (context.mounted) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(
-//             content: Text(
-//               'Password reset email sent',
-//             ),
-//           ),
-//         );
-//       }
-//       Get.to(() => LoginScreen());
-//     } on FirebaseAuthException catch (e) {
-//       if (e.code == "invalid-email") {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'invalid-email ! Please enter valid email',
-//               ),
-//             ),
-//           );
-//         }
-//         isLoading.value = false;
-//       } else {
-//         if (context.mounted) {
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text(
-//                 'user-not-found ! Please create new Account',
-//               ),
-//             ),
-//           );
-//         }
-//         isLoading.value = false;
-//       }
-//     } catch (e) {
-//       if (context.mounted) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(
-//             content: Text(
-//               'unexpected error Occurred! Please try again',
-//             ),
-//           ),
-//         );
-//       }
-//     }
-//   }
-//
-//   // Email Verification
-//   Future<bool> checkEmailVerification() async {
-//     User? user = auth.currentUser;
-//     if (user != null) {
-//       await user.reload();
-//       user = auth.currentUser;
-//       return user!.emailVerified;
-//     }
-//     return false;
-//   }
-//
-//   // Start checking email verification status periodically
-//   void _startEmailVerificationCheck() {
-//     _verificationTimer =
-//         Timer.periodic(const Duration(seconds: 5), (timer) async {
-//       bool isEmailVerified = await checkEmailVerification();
-//       if (isEmailVerified) {
-//         _verificationTimer?.cancel();
-//         Get.offAll(() => ProfessionalInformation());
-//       }
-//     });
-//   }
-//
-//   // Cancel the timer when the controller is disposed
-//   @override
-//   void onClose() {
-//     _verificationTimer?.cancel();
-//     super.onClose();
-//   }
-// }
+import 'dart:developer';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import '../../views/bottom_navigation_bar.dart';
+import '../../views/screens/auth_section/login_screen.dart';
+import '../../views/screens/auth_section/profile_info_screen_2.dart';
+import '../utils/custom_snackbar_error_widget.dart';
+import '../utils/image_picker.dart';
+
+class AuthController extends GetxController {
+  // Text Editing Controllers
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController referralController = TextEditingController();
+  final TextEditingController firstController = TextEditingController();
+  final TextEditingController lastController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController professionController = TextEditingController();
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController emailLoginController = TextEditingController();
+  final TextEditingController passwordLoginController = TextEditingController();
+  final TextEditingController recoverEmailForgotController = TextEditingController();
+
+  // Firebase Instances
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
+
+  // Other Controllers
+  ImagePickerController imagePickerController = Get.put(ImagePickerController());
+  ProfessionalInformation2 professionalInformation2 = Get.put(ProfessionalInformation2());
+
+  // Reactive Variables
+  RxBool isLoading = false.obs;
+  var firstName = ''.obs;
+  var lastName = ''.obs;
+  var profileImage = ''.obs;
+  RxString chooseLooking = ''.obs;
+  final List<String> looking = ["1", "2", "3", "4"];
+
+  RxString skillsCommunity = ''.obs;
+  final List<String> skills = ["1", "2", "3", "4"];
+
+  RxString rolesCommunity = ''.obs;
+  final List<String> roles = ["1", "2", "3", "4"];
+
+  RxString alreadyCommunity = ''.obs;
+  final List<String> already = ["1", "2", "3", "4"];
+
+  RxString preferCommunity = ''.obs;
+  final List<String> prefer = ["1", "2", "3", "4"];
+
+  RxString locationCommunity = ''.obs;
+  final List<String> location = ["1", "2", "3", "4"];
+
+  RxString availableCommunity = ''.obs;
+  final List<String> available = ["1", "2", "3", "4"];
+
+  RxString languageCommunity = ''.obs;
+  final List<String> language = ["1", "2", "3", "4"];
+
+  // Method to upload profile image to Firebase Storage
+  Future<String> uploadImageToStorage(String imagePath) async {
+    try {
+      File file = File(imagePath);
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference ref = storage.ref().child('images').child(fileName);
+      UploadTask uploadTask = ref.putFile(file);
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+      String downloadURL = await taskSnapshot.ref.getDownloadURL();
+      log("Image uploaded successfully: $downloadURL");
+      return downloadURL;
+    } catch (e) {
+      log("Error uploading image: $e");
+      throw e;
+    }
+  }
+
+  // Method to check if email exists
+  Future<bool> checkEmail() async {
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection("users")
+          .where("emailName", isEqualTo: emailController.text.trim())
+          .get();
+      return querySnapshot.docs.isNotEmpty; // Returns true if email exists
+    } catch (e) {
+      log("Error checking email: $e");
+      return false; // Return false in case of an error
+    }
+  }
+   //Login Method
+  Future<void> loginMethod() async {
+    var userEmail = emailLoginController.text.trim();
+    var userPassword = passwordLoginController.text.trim();
+
+    // Basic validation
+    if (userEmail.isEmpty || userPassword.isEmpty) {
+      showErrorSnackBar("Email and password are required");
+      return;
+    } else if (!isValidEmail.hasMatch(userEmail)) {
+      showErrorSnackBar("Invalid email format");
+      return;
+    } else if (!isValidPassword.hasMatch(userPassword)) {
+      showErrorSnackBar("Invalid password format");
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+
+      // Authenticate with Firebase Auth
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: userEmail,
+        password: userPassword,
+      );
+
+      log("User signed in successfully");
+      Get.to(() => const BottomNavigationScreen());
+      // Fetch user document from Firestore using the uid from FirebaseAuth
+      String uid = userCredential.user!.uid;
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      if (!userDoc.exists) {
+        // Handle case if user does not exist in Firestore
+        showErrorSnackBar("No user found with this email");
+        isLoading.value = false;
+        return;
+      }
+
+      // User exists in Firestore, login successful
+      log("User found in Firestore: ${userDoc.data()}");
+
+    } on FirebaseAuthException catch (e) {
+      isLoading.value = false;
+      log("FirebaseAuthException: $e");
+
+      if (e.code == 'user-not-found') {
+        showErrorSnackBar("No user found with this email.");
+      } else if (e.code == 'wrong-password') {
+        showErrorSnackBar("Incorrect password.");
+      } else {
+        showErrorSnackBar("Error signing in: ${e.message}");
+      }
+    } catch (e) {
+      isLoading.value = false;
+      log("Error: $e");
+      showErrorSnackBar("An error occurred. Please try again.");
+    } finally {
+      isLoading.value = false; // Ensure loading stops
+    }
+  }
+// Fetch user data from Firestore based on UID
+  Future<void> fetchUserData(String uid) async {
+    try {
+      DocumentSnapshot userDoc = await firestore.collection('users').doc(uid).get();
+
+      if (userDoc.exists) {
+        firstName.value = userDoc['firstName'] ?? '';
+        lastName.value = userDoc['lastName'] ?? '';
+        profileImage.value = userDoc['profileImage'] ?? '';
+      } else {
+        Get.snackbar('Error', 'User not found');
+      }
+    } catch (e) {
+      log("Error fetching user data: $e");
+      Get.snackbar('Error', 'Failed to fetch user data');
+    }
+  }
+
+  // Sign-Up Method
+  Future<void> signUpMethod() async {
+    // Ensure all required community fields are selected
+    if (chooseLooking.value.isEmpty ||
+        skillsCommunity.value.isEmpty ||
+        rolesCommunity.value.isEmpty ||
+        alreadyCommunity.value.isEmpty ||
+        preferCommunity.value.isEmpty ||
+        locationCommunity.value.isEmpty ||
+        availableCommunity.value.isEmpty ||
+        languageCommunity.value.isEmpty) {
+      // Show error message if any field is empty
+      showErrorSnackBar("Please select all required community fields before signing up.");
+      return; // Exit the method if validation fails
+    }
+    try {
+      isLoading.value = true;
+      // Create user with email and password
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+      String uid = userCredential.user!.uid;
+      // Upload profile image and get URL
+      String imageUrl = await uploadImageToStorage(imagePickerController.imagePath.value);
+      // Store user data in Firestore
+      await firestore.collection("users").doc(uid).set({
+        "emailName": emailController.text.trim(),
+        "referralCode": referralController.text.trim(),
+        "firstName": firstController.text.trim(),
+        "lastName": lastController.text.trim(),
+        "userName": userNameController.text.trim(),
+        "profession": professionController.text.trim(),
+        "location": locationController.text.trim(),
+        "profileImage": imageUrl,
+        "chooseLooking": chooseLooking.value,
+        "skillsCommunity": skillsCommunity.value,
+        "rolesCommunity": rolesCommunity.value,
+        "alreadyCommunity": alreadyCommunity.value,
+        "preferCommunity": preferCommunity.value,
+        "locationCommunity": locationCommunity.value,
+        "availableCommunity": availableCommunity.value,
+        "languageCommunity": languageCommunity.value,
+        "createdAt": FieldValue.serverTimestamp(),
+      });
+      showSuccessSnackBar("Sign Up Data Added Successfully!");
+      Get.to(() => LoginScreen());
+    } catch (e) {
+      log("Error during sign-up: $e");
+      showErrorSnackBar("Error: ${e.toString()}");
+    } finally {
+      isLoading.value = false; // Ensure loading is stopped
+    }
+  }
+  // Forgot Password
+  Future<void> forgotPasswordMethod() async {
+    if (recoverEmailForgotController.text.trim().isEmpty) {
+      showErrorSnackBar("Please enter your email address.");
+      return;
+    }
+    try {
+      isLoading.value = true;
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: recoverEmailForgotController.text.trim());
+      showSuccessSnackBar("We have sent you an email to recover your password.");
+      recoverEmailForgotController.clear();
+      Get.to(LoginScreen());
+    } catch (error) {
+      showErrorSnackBar(error.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+}
+
+
+RegExp isValidEmail = RegExp(
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
+
+RegExp isValidPassword = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');

@@ -87,11 +87,11 @@ class _ConnectionRequestScreenState extends State<ConnectionRequestScreen> {
                                 // Handle revise action
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.w),
+                                padding: EdgeInsets.symmetric(vertical: 6.0, horizontal: 5.w),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   border: Border.all(color: AppColors.greyColor),
-                                  borderRadius: BorderRadius.circular(24),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Text('Deny', style: AppTextStyles.blackColorN),
                               ),
@@ -102,10 +102,10 @@ class _ConnectionRequestScreenState extends State<ConnectionRequestScreen> {
                                 // Handle go live action
                               },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                                padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),border: Border.all(color: AppColors.greenColor3,)
+                                    borderRadius: BorderRadius.circular(12),border: Border.all(color: AppColors.greenColor3,)
                                 ),
                                 child: Text(
                                   'Accept',

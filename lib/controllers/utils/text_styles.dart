@@ -22,6 +22,8 @@ class AppTextStyles{
   static TextStyle textSignUpWhite=TextStyle(fontSize: 14.px,fontWeight: FontWeight.w500, color: Colors.white);
   static TextStyle textSignUpWhite1=TextStyle(fontSize: 10.px,fontWeight: FontWeight.w400, color: Colors.white);
   static TextStyle textExploreBlack=TextStyle(fontSize: 18.px,fontWeight: FontWeight.w400, color:AppColors.blackColor);
+  static TextStyle blackColorInno=TextStyle(fontSize: 14.px,fontWeight: FontWeight.w700, color:AppColors.blackColorInno);
+  static TextStyle greyColorFollower=TextStyle(fontSize: 12.px,fontWeight: FontWeight.w400, color:AppColors.greyColorFollower);
   static TextStyle textStartBlack=TextStyle(fontSize: 16.px,fontWeight: FontWeight.w600, color:AppColors.blackColor);
   static TextStyle textWelcomeBlack=TextStyle(fontSize: 18.px,fontWeight: FontWeight.w500, color:AppColors.blackColor);
   static TextStyle textAccountBlack=TextStyle(fontSize: 12.px,fontWeight: FontWeight.w500, color:AppColors.blackColor1);

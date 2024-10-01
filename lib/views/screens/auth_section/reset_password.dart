@@ -3,22 +3,18 @@ import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
+import '../../../controllers/getx_controllers/auth_controllers.dart';
 
 
 class ResetPassword extends StatelessWidget {
   ResetPassword({super.key});
-
-  final TextEditingController emailController = TextEditingController();
-
-  final TextEditingController passwordController = TextEditingController();
-
   final isVisible = true.obs;
-
   @override
   Widget build(BuildContext context) {
-    // final AuthController authController =
-    //     Get.put(AuthController(context: context));
+    final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
@@ -52,75 +48,34 @@ class ResetPassword extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       customTextFormField(
-                        controller: emailController,
+                        controller: authController.recoverEmailForgotController,
                         title: "Email",
                       ),
                       SizedBox(height: 5.h,),
-                      // Obx(
-                      //   () => Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: [
-                      //       SizedBox(height: 3.h),
-                      //       Expanded(
-                      //         child: customElevatedButton(
-                      //           // title: authController.isLoading.value
-                      //           //     ? buttonLoading
-                      //           //     :
-                      //           title:  Text(
-                      //                   'Reset Password',
-                      //                   style: AppTextStyles.buttonTextStyle,
-                      //                 ),
-                      //           onTap: () {
-                      //             Get.to(()=>LoginScreen());
-                      //             // if (emailController.text.isEmpty) {
-                      //             //   ScaffoldMessenger.of(context).showSnackBar(
-                      //             //       const SnackBar(
-                      //             //           content:
-                      //             //               Text('Please enter your email')));
-                      //             // } else {
-                      //             //   authController.resetPasswordByEmailLink(
-                      //             //     email: emailController.text.trim(),
-                      //             //   );
-                      //             // }
-                      //           },
-                      //           bgColor: AppColors.primaryColor,
-                      //         ),
-                      //       ),
-                      //       SizedBox(height: 3.h),
-                      //     ],
-                      //   ),
-                      // )
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 3.h),
-                          Expanded(
-                            child: customElevatedButton(
-                              // title: authController.isLoading.value
-                              //     ? buttonLoading
-                              //     :
-                              title:  Text(
-                                'Reset Password',
-                                style: AppTextStyles.buttonTextStyle,
-                              ),
-                              onTap: () {
-                                Get.back();
-                                // if (emailController.text.isEmpty) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       const SnackBar(
-                                //           content:
-                                //               Text('Please enter your email')));
-                                // } else {
-                                //   authController.resetPasswordByEmailLink(
-                                //     email: emailController.text.trim(),
-                                //   );
-                                // }
-                              },
-                              bgColor: AppColors.primaryColor,
+                      Padding(
+                        padding:  EdgeInsets.symmetric(horizontal: 18.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 3.h),
+                            Expanded(
+                              child:
+                              Obx(()=>customElevatedButton(
+                                onTap: () async {
+                                 await authController.forgotPasswordMethod();
+                                },
+                                title:authController.isLoading.value
+                                    ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 30.px):Text(
+                                  'Reset Password',
+                                  style: AppTextStyles.buttonTextStyle,
+                                ),
+
+                                bgColor: AppColors.primaryColor,
+                              ),)
                             ),
-                          ),
-                          SizedBox(height: 3.h),
-                        ],
+                            SizedBox(height: 3.h),
+                          ],
+                        ),
                       ),
                     ],
                   ),

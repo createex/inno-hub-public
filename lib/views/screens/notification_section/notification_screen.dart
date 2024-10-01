@@ -8,6 +8,8 @@ import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
 import 'package:in_hub/views/screens/search_section/search_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../custom_widgets/app_keys.dart';
+
 class NotiFicationScreen extends StatelessWidget {
   NotiFicationScreen({super.key});
   TextEditingController searchController = TextEditingController();
@@ -23,29 +25,44 @@ class NotiFicationScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: Row(
               children: [
-                Image.asset('assets/pngs/Ellipse 41.png'),
-                SizedBox(
-                  width: 2.5.w,
-                ),
-                // getHorizontalSpace(2.w),
-                Expanded(
-                  child: SearchCustomTextFormField(
-                    controller: searchController,
-                    onTap: () {
-                      Get.to(() => SearchScreen());
-                    },
-                    readOnly: true,
-                    hintText: 'Search',
-                    suffixIcon: SvgPicture.asset("assets/svgs/search.svg"),
+                // GestureDetector(
+                //     onTap: () {
+                //       AppKeys.scaffoldKey.currentState?.openDrawer();
+                //     },
+                //     child: Image.asset('assets/pngs/Ellipse 41.png',)),
+                GestureDetector(onTap: () {
+                  AppKeys.scaffoldKey.currentState?.openDrawer();
+                },
+                  child: const CircleAvatar(
+                    backgroundImage: AssetImage("assets/pngs/iqrapro.png"),
+                    radius: 20,
                   ),
                 ),
+                Spacer(),
+                Image.asset("assets/pngs/innoHubLogo.png"),                // getHorizontalSpace(2.w),
+                // Expanded(
+                //   child: SearchCustomTextFormField(
+                //     onTap: () {
+                //       Get.to(() => SearchScreen());
+                //     },
+                //     readOnly: true,
+                //     hintText: 'Search',
+                //     controller: searchController,
+                //     suffixIcon: SvgPicture.asset("assets/svgs/search.svg"),
+                //   ),
+                // ),
+                const Spacer(),
+                GestureDetector(onTap: () {
+                  Get.to(() =>  SearchScreen());
+                },
+                    child: SvgPicture.asset("assets/svgs/innoHubSearch.svg")),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 1),
                   child: GestureDetector(
                       onTap: () {
-                        Get.to(() => const MainChatScreen());
+                        Get.to(() => MainChatScreen());
                       },
-                      child: Image.asset('assets/pngs/bxs_chat.png')),
+                      child: Image.asset('assets/pngs/bxs_chat.png',)),
                 )
               ],
             ),

@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/app_keys.dart';
 import 'package:in_hub/views/screens/chat_section/main_chat.dart';
-import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
+import 'package:in_hub/views/screens/search_section/search_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../controllers/utils/app_colors.dart';
 import 'feed_bar.dart';
-import 'screens/search_section/search_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({super.key});
@@ -34,38 +33,51 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             padding: EdgeInsets.symmetric(horizontal: 2.h),
             child: Row(
               children: [
-                GestureDetector(
-                    onTap: () {
-                      AppKeys.scaffoldKey.currentState?.openDrawer();
-                    },
-                    child: Image.asset('assets/pngs/Ellipse 41.png')),
-                SizedBox(
-                  width: 2.5.w,
-                ),
-                // getHorizontalSpace(2.w),
-                Expanded(
-                  child: SearchCustomTextFormField(
-                    onTap: () {
-                      Get.to(() => SearchScreen());
-                    },
-                    readOnly: true,
-                    hintText: 'Search',
-                    controller: searchController,
-                    suffixIcon: SvgPicture.asset("assets/svgs/search.svg"),
+                // GestureDetector(
+                //     onTap: () {
+                //       AppKeys.scaffoldKey.currentState?.openDrawer();
+                //     },
+                //     child: Image.asset('assets/pngs/Ellipse 41.png',)),
+                GestureDetector(onTap: () {
+                  AppKeys.scaffoldKey.currentState?.openDrawer();
+                },
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage("assets/pngs/iqrapro.png"),
+                    radius: 20,
                   ),
                 ),
+
+                Spacer(),
+                Image.asset("assets/pngs/innoHubLogo.png"),
+                // getHorizontalSpace(2.w),
+                // Expanded(
+                //   child: SearchCustomTextFormField(
+                //     onTap: () {
+                //       Get.to(() => SearchScreen());
+                //     },
+                //     readOnly: true,
+                //     hintText: 'Search',
+                //     controller: searchController,
+                //     suffixIcon: SvgPicture.asset("assets/svgs/search.svg"),
+                //   ),
+                // ),
+                Spacer(),
+                GestureDetector(onTap: () {
+                  Get.to(() =>  SearchScreen());
+
+                },
+                    child: SvgPicture.asset("assets/svgs/innoHubSearch.svg")),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 1),
                   child: GestureDetector(
                       onTap: () {
-                        Get.to(() => MainChatScreen());
+                        Get.to(() => const MainChatScreen());
                       },
-                      child: Image.asset('assets/pngs/bxs_chat.png')),
+                      child: Image.asset('assets/pngs/bxs_chat.png',)),
                 )
               ],
             ),
           ),
-
           SizedBox(height: 2.h), // Space before the TabBar
           Expanded(
             child: DefaultTabController(
@@ -80,8 +92,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                       alignment: Alignment.center,
                       child: TabBar(
                         dividerColor: Colors.transparent,
-                        padding: EdgeInsets.symmetric(horizontal: 2.5.h),
-                        indicatorPadding: EdgeInsets.symmetric(horizontal: 4.h),
+                        // padding: EdgeInsets.symmetric(horizontal: 2.5.h),
+                        // indicatorPadding: EdgeInsets.symmetric(horizontal: 4.h),
                         indicator: UnderlineTabIndicator(
                           borderSide: BorderSide(
                             width: 2.0,

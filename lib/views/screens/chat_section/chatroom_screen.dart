@@ -29,10 +29,22 @@ class ChatroomScreen extends StatelessWidget {
                       border: Border(
                           bottom: BorderSide(
                               color: AppColors.shadowColor, width: .4.h))),
-                  child: Text(
-                    userName,
-                    style: AppTextStyles.boldTextStyle
-                        .copyWith(color: AppColors.headingColor, fontSize: 18.px),
+                  child: Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 2.h),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(onTap: () {
+                          Get.back();
+                        },
+                            child: Icon(Icons.arrow_back_ios_new_outlined)),
+                        Text(
+                          userName,
+                          style: AppTextStyles.boldTextStyle
+                              .copyWith(color: AppColors.headingColor, fontSize: 18.px),
+                        ),
+                        SizedBox(height: 10.px,width: 10.px,)
+                      ],
+                    ),
                   )),
               SizedBox(height: 2.h,),
               ListView.builder(
@@ -47,14 +59,14 @@ class ChatroomScreen extends StatelessWidget {
                     ),
                     child:Row(mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        const CircleAvatar(backgroundImage: AssetImage("assets/pngs/pngprofile.png"),),
+                        SizedBox(width: 2.w,),
                         Container(
                           padding: EdgeInsets.all(1.h),
                           decoration: BoxDecoration(
                             color: AppColors.shadowColor,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(2.h),
-                              bottomRight: Radius.circular(2.h),
-                              topRight: Radius.circular(2.h)
+                            borderRadius: BorderRadius.circular(
+                             10
                             )
                           ),
                           child: Text(chatList[index]),

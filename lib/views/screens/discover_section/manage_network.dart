@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
+import 'package:in_hub/views/screens/discover_section/connects_screen.dart';
 import 'package:in_hub/views/screens/discover_section/follow_screen.dart';
 import 'package:in_hub/views/screens/discover_section/people_followed_you_screen.dart';
 import 'package:in_hub/views/screens/discover_section/start_up_follow_screen.dart';
@@ -17,7 +18,10 @@ class ManageNetworkScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         elevation: 0.0,
-        leading: Icon(Icons.arrow_back_ios),
+        leading: GestureDetector(onTap: () {
+          Get.back();
+        },
+            child: const Icon(Icons.arrow_back_ios)),
         title: Text(
           'Manage network',
           style: AppTextStyles.blackColorN,
@@ -106,6 +110,34 @@ class ManageNetworkScreen extends StatelessWidget {
                         child: IconButton(
                             onPressed: () {
                               Get.to(() => const StartUpFollowScreen());
+                            },
+                            icon: const Icon(Icons.arrow_forward))),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              height: 1,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              child: Row(
+                children: [
+                  GestureDetector(onTap:(){
+                    Get.to(() =>  ConnectScreen());
+
+                  },
+                    child: Text(
+                      "My Connects",
+                      style: AppTextStyles.textNameBlack7,
+                    ),
+                  ),
+                  Expanded(
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: IconButton(
+                            onPressed: () {
+                              Get.to(() =>  ConnectScreen());
                             },
                             icon: const Icon(Icons.arrow_forward))),
                   ),

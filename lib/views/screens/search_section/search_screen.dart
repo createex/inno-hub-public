@@ -4,18 +4,28 @@ import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_textformfield.dart';
+import 'package:in_hub/views/screens/filter_section/filter_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   final RxList<String> titles = <String>[
     "Users",
     "Posts",
     'Videos',
     'Startups',
   ].obs;
-  final TextEditingController searchController=TextEditingController();
-  final RxInt isSelected=0.obs;
+
+  final TextEditingController searchController = TextEditingController();
+
+  final RxInt isSelected = 0.obs;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +39,7 @@ class SearchScreen extends StatelessWidget {
               SizedBox(height: 5.h), // Adjust spacing as needed
               Row(
                 children: [
-                  SizedBox(
-                    width: 1.2.h,
-                  ),
+                  SizedBox(width: 1.2.h),
                   GestureDetector(
                     onTap: () {
                       Get.back();
@@ -42,10 +50,7 @@ class SearchScreen extends StatelessWidget {
                       size: 2.6.h,
                     ),
                   ),
-                  SizedBox(
-                    width: 1.5.h,
-                  ),
-                  // getHorizontalSpace(2.w),
+                  SizedBox(width: 1.5.h),
                   Expanded(
                     child: SearchCustomTextFormField(
                       controller: searchController,
@@ -55,94 +60,128 @@ class SearchScreen extends StatelessWidget {
                       onTap: () {},
                     ),
                   ),
+                  SizedBox(width: 2.h),
+
+                  GestureDetector(onTap: () {
+                    Get.to(()=>const FilterScreen());
+                  },
+                      child: SvgPicture.asset("assets/svgs/innoHubFilter.svg"))
                 ],
               ),
-              SizedBox(
-                height: 2.4.h,
-              ),
-              searchController.text.isNotEmpty?Container(
-              width: MediaQuery.of(context).size.width,
-              height: 6.h,
-              padding: EdgeInsets.symmetric(vertical: 1.h),
-              color: const Color(0xffF5F5F5),
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: titles.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 1.h),
-                    child: GestureDetector(
-                      onTap: () {
-                        isSelected.value=index;
-                      },
-                      child: Obx(() =>
-                       Container(
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: .8.h, vertical: .5.h),
-                          decoration: BoxDecoration(
+              SizedBox(height: 2.4.h),
+              searchController.text.isNotEmpty
+                  ? Container(
+                width: MediaQuery.of(context).size.width,
+                height: 6.h,
+                padding: EdgeInsets.symmetric(vertical: 1.h),
+                color: const Color(0xffF5F5F5),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: titles.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 1.h),
+                      child: GestureDetector(
+                        onTap: () {
+                          isSelected.value = index;
+                        },
+                        child: Obx(
+                              () => Container(
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: .8.h, vertical: .5.h),
+                            decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3.h),
-                              border: Border.all(color: isSelected.value==index? AppColors.primaryColor:AppColors.greyColor)),
-                          child: Text(
-                            titles[index],
-                            style: AppTextStyles.buttonTextStyle.copyWith(
-                                color: isSelected.value==index? AppColors.primaryColor:AppColors.greyColor,
-                                fontWeight: FontWeight.w400),
+                              border: Border.all(
+                                  color: isSelected.value == index
+                                      ? AppColors.primaryColor
+                                      : AppColors.greyColor),
+                            ),
+                            child: Text(
+                              titles[index],
+                              style: AppTextStyles.buttonTextStyle.copyWith(
+                                color: isSelected.value == index
+                                    ? AppColors.primaryColor
+                                    : AppColors.greyColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            ):const SizedBox.shrink(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Recent',
-                    style: AppTextStyles.buttonTextStyle.copyWith(
-                        fontSize: 16.px,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.headingColor),
-                  ),
-                  Text(
-                    'Clear All',
-                    style: AppTextStyles.buttonTextStyle.copyWith(
-                        fontSize: 16.px,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.primaryColor),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 1.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Mohsin',
-                          style: AppTextStyles.buttonTextStyle.copyWith(
-                              fontSize: 14.px,
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.greyColor),
-                        ),
-                        SvgPicture.asset("assets/svgs/cross.svg")
-                      ],
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               )
+                  : const SizedBox.shrink(),
+
+              // Using GridView to show two items per row
+              Expanded(
+                child: GridView.builder(
+                  itemCount: 4, // Set the number of items to display
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // Show 2 items per row
+                    crossAxisSpacing: 2.w,
+                    mainAxisSpacing: 2.h,
+                    childAspectRatio: 0.8, // Adjust the height of the containers
+                  ),
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.symmetric(vertical: 1.h, horizontal: 2.w),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.greyColor7),
+                        borderRadius: BorderRadius.circular(16.px),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: const AssetImage("assets/pngs/pngprofile.png"),
+                            radius: 40.px,
+                          ),
+                          SizedBox(height: 1.h),
+                          Text(
+                            "Zeeshan",
+                            style: TextStyle(
+                              fontSize: 18.px,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 0.5.h),
+                          Text(
+                            "Interests",
+                            style: TextStyle(
+                              fontSize: 14.px,
+                              color: AppColors.secondaryColor,
+                            ),
+                          ),
+                          SizedBox(height: 1.h),
+                          Flexible(
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.greyColor2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.px),
+                                  side: const BorderSide(
+                                      color: AppColors.greenColor3, width: 1),
+                                ),
+                              ),
+                              child: Text(
+                                "Connect",
+                                style: TextStyle(
+                                    fontSize: 14.px, color: AppColors.greenColor3,overflow: TextOverflow.ellipsis),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

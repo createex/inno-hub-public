@@ -27,7 +27,7 @@ Widget customTextFormField({
     controller: controller,
     readOnly: readOnly ?? false,
     keyboardType: keyBoardType,
-    maxLines: maxLine,
+    // maxLines: maxLine,
     cursorColor: AppColors.primaryColor,
     decoration: InputDecoration(
       border: OutlineInputBorder(
@@ -37,7 +37,6 @@ Widget customTextFormField({
       hintStyle: AppTextStyles.hintTextStyle,
       filled: true,
       fillColor: bgColor ?? AppColors.whiteColor,
-      isCollapsed: true,
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(1.h),
         borderSide: BorderSide(color: AppColors.primaryColor),
@@ -48,7 +47,7 @@ Widget customTextFormField({
       ),
       contentPadding: EdgeInsets.symmetric(
         horizontal: horizentalPadding ?? 1.2.h,
-        vertical: verticalPadding ?? 1.3.h,
+        vertical: verticalPadding ?? 2.2.h,
       ),
       prefixIcon: SizedBox(
         height: 2.4.h,
@@ -104,6 +103,55 @@ Widget customTextFormField({
     ),
   );
 }
+//
+
+Widget customTextFormFieldProfile({
+  TextEditingController? controller,
+  String? title,
+  Callback? onTap,
+  bool? readOnly,
+  TextInputType? keyBoardType,
+  int? maxLine,
+  Color? bgColor,
+  Color? borderColor,
+  Widget? lineImage,
+  double? width,
+  double? horizentalPadding,
+  double? verticalPadding,
+  String? tooltipMessage, // Add this parameter to provide tooltip text
+}) {
+  return TextFormField(
+    controller: controller,
+    readOnly: readOnly ?? false,
+    keyboardType: keyBoardType,
+    maxLines: maxLine,
+    cursorColor: AppColors.primaryColor,
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+      ),
+      hintText: title ?? 'Email',
+      hintStyle: AppTextStyles.hintTextStyle,
+      filled: true,
+      fillColor: bgColor ?? AppColors.whiteColor,
+      isCollapsed: true,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+        borderSide: BorderSide(color: AppColors.primaryColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+        borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: horizentalPadding ?? 1.2.h,
+        vertical: verticalPadding ?? 1.3.h,
+      ),
+
+    ),
+  );
+}
+
 
 Widget customTextFormField1(
     {String? title,
@@ -166,22 +214,37 @@ Widget customTextFormField1(
 }
 
 //ElevatedButton
-Widget customElevatedButton(
-    {Widget? title,
-    Color? bgColor,
-    Color? borderColor,
-    double? width,
-    double? borderRadius,
-    Callback? onTap}) {
-  return ElevatedButton(
+Widget customElevatedButton({
+  Widget? title,
+  Color? bgColor,
+  Color? borderColor,
+  double? width,
+  double? height,
+  double? borderRadius,
+  Callback? onTap,
+}) {
+  return SizedBox(height: 45,
+    child: ElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
-        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius ?? 1.h),
+        shape: MaterialStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius ?? 3.h),
             side: BorderSide(
-                color: borderColor ?? Colors.transparent, width: 2))),
-        backgroundColor:
-            WidgetStatePropertyAll(bgColor ?? AppColors.primaryColor),
+              color: borderColor ?? Colors.transparent,
+              width: 2,
+            ),
+          ),
+        ),
+        backgroundColor: MaterialStatePropertyAll(
+          bgColor ?? AppColors.primaryColor,
+        ),
       ),
-      child: title);
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: title,
+      ),
+    ),
+  );
 }
+
