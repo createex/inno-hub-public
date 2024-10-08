@@ -152,6 +152,53 @@ Widget customTextFormFieldProfile({
   );
 }
 
+Widget customTextFormFieldProfile2({
+  TextEditingController? controller,
+  String? title,
+  Callback? onTap,
+  bool? readOnly,
+  TextInputType? keyBoardType,
+  int? maxLine,
+  Color? bgColor,
+  Color? borderColor,
+  Widget? lineImage,
+  double? width,
+  double? horizentalPadding,
+  double? verticalPadding,
+  String? tooltipMessage, // Add this parameter to provide tooltip text
+  Function(String)? onChanged, // Add this parameter to detect input changes
+}) {
+  return TextFormField(
+    controller: controller,
+    readOnly: readOnly ?? false,
+    keyboardType: keyBoardType,
+    maxLines: maxLine,
+    cursorColor: AppColors.primaryColor,
+    onChanged: onChanged, // Detect input changes
+    decoration: InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+      ),
+      hintText: title ?? 'Email',
+      hintStyle: AppTextStyles.hintTextStyle,
+      filled: true,
+      fillColor: bgColor ?? AppColors.whiteColor,
+      isCollapsed: true,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+        borderSide: BorderSide(color: AppColors.primaryColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(1.h),
+        borderSide: BorderSide(color: borderColor ?? AppColors.borderColor),
+      ),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: horizentalPadding ?? 1.2.h,
+        vertical: verticalPadding ?? 1.3.h,
+      ),
+    ),
+  );
+}
 
 Widget customTextFormField1(
     {String? title,

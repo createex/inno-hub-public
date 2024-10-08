@@ -89,4 +89,38 @@ class UserProfileController extends GetxController {
   //     }
   //   }
   // }
+
+// Add this method to your UserProfileController
+  Future<void> updateUserProfile({
+    required String uid,
+    required String username,
+    required String about,
+    required String currentPosition,
+    required String company,
+    required String location,
+    required List<String> skills,
+    required List<String> lookingForItems,
+    required List<String> rolesList,
+    required List<String> industryInterests,
+    required List<String> languages,
+  }) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    try {
+      await firestore.collection('users').doc(uid).update({
+        "userName": username,
+        "about": about,
+        "currentPosition": currentPosition,
+        "company": company,
+        "location": location,
+        "skills": FieldValue.arrayUnion(skills),
+        "lookingFor": FieldValue.arrayUnion(lookingForItems),
+        "roles": FieldValue.arrayUnion(rolesList),
+        "industryInterests": FieldValue.arrayUnion(industryInterests),
+        "languages": FieldValue.arrayUnion(languages),
+      });
+      log('User profile updated successfully for uid: $uid');
+    } catch (e) {
+      log('Error updating user profile: ${e.toString()}');
+    }
+  }
 }

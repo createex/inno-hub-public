@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'inno-hub-35e30.appspot.com',
     iosBundleId: 'com.inno.hub',
   );
-
 }
