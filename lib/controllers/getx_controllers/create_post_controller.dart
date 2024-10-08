@@ -7,6 +7,8 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:in_hub/controllers/utils/custom_snackbar_error_widget.dart';
+import 'package:in_hub/views/bottom_navigation_bar.dart';
+import 'package:in_hub/views/screens/home_section/home_post_screen.dart';
 class CreatePostController extends GetxController {
   TextEditingController aboutPostController=TextEditingController();
   RxBool isLoading=false.obs;
@@ -57,21 +59,26 @@ class CreatePostController extends GetxController {
       if (image.value != null) {
         imageUrl = await uploadImageToStorage(image.value!);
       }
-      // Prepare the post data
+
+      // Prepare the post data with an empty 'likes' list
       Map<String, dynamic> postData = {
         'id': id, // User ID from Firebase Authentication
         'aboutPost': aboutPost.value, // Post description
         'media': imageUrl != null ? [imageUrl] : [], // Image URL or empty if no image
         'createdAt': FieldValue.serverTimestamp(), // Post creation time
+        'likes': [], // Empty list to store the user IDs of people who liked the post
       };
 
       // Save the post data in Firestore under the 'posts' collection
       await FirebaseFirestore.instance.collection('posts').add(postData);
 
       showSuccessSnackBar('Post created successfully');
+      Get.to(() => const BottomNavigationScreen());
     } catch (e) {
       Get.snackbar('Error', e.toString());
     }
   }
+  // likes
+
 
 }

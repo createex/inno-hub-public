@@ -56,7 +56,6 @@ class CreatePost extends StatelessWidget {
                     SizedBox(width: 1.h),
                     // Display the user's name dynamically
                     Obx(() {
-                      // Display first name and last name together, if both are not empty
                       return Text(
                         authController.firstName.value.isNotEmpty && authController.lastName.value.isNotEmpty
                             ? '${authController.firstName.value} ${authController.lastName.value}' // Concatenate first and last names
@@ -69,7 +68,7 @@ class CreatePost extends StatelessWidget {
                       );
                     }),
                   ],
-                ),                SizedBox(height: 3.h),
+                ),               SizedBox(height: 3.h),
 
                 // Post description text field
                 TextFormField(

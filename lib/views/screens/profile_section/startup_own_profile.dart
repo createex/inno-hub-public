@@ -3,23 +3,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
-import 'package:in_hub/models/feed_model.dart';
-import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
-import 'package:in_hub/views/screens/profile_section/create_startup_profile.dart';
-import 'package:in_hub/views/screens/profile_section/profile_post_screen.dart';
 import 'package:in_hub/views/screens/profile_section/profile_post_screen_it.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
+import '../../../models/static_model.dart';
 import '../custom_widgets/app_keys.dart';
-import 'detail_screen.dart';
 import 'details_screen_it.dart';
 import 'edit_startup_profile.dart';
-
 class StartUpOwnProfile extends StatelessWidget {
   StartUpOwnProfile({super.key});
-  // Initialize with static data
-  final List<FeedsModel> data = [
-    FeedsModel(
+  final List<StaticModel> data = [
+    StaticModel(
       profileImage: 'assets/pngs/iqrapro.png',
       name: 'Zeeshan',
       title: 'Hello World',
@@ -28,7 +21,7 @@ class StartUpOwnProfile extends StatelessWidget {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/iqrapro.png',
       name: 'John Doe',
       title: 'Flutter is awesome!',
@@ -37,7 +30,7 @@ class StartUpOwnProfile extends StatelessWidget {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/iqrapro.png',
       name: 'Jane Doe',
       title: 'Beautiful Day',

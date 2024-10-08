@@ -4,7 +4,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../controllers/utils/app_colors.dart';
 import '../../../controllers/utils/text_styles.dart';
-import '../../../models/feed_model.dart';
+import '../../../models/post_media_model.dart';
+import '../../../models/static_model.dart';
 class MessagePostDetails extends StatefulWidget {
   const MessagePostDetails({super.key});
 
@@ -13,8 +14,8 @@ class MessagePostDetails extends StatefulWidget {
 }
 
 class _MessagePostDetailsState extends State<MessagePostDetails> {
-  final List<FeedsModel> data = [
-    FeedsModel(
+  final List<StaticModel> data = [
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'Zeeshan',
       title: 'Hello World',
@@ -23,7 +24,7 @@ class _MessagePostDetailsState extends State<MessagePostDetails> {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'John Doe',
       title: 'Flutter is awesome!',
@@ -32,7 +33,7 @@ class _MessagePostDetailsState extends State<MessagePostDetails> {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'Jane Doe',
       title: 'Beautiful Day',

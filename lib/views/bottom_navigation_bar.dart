@@ -9,12 +9,10 @@ import 'package:in_hub/views/screens/setting_section/setting_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../controllers/utils/app_colors.dart';
 import '../controllers/utils/text_styles.dart';
-import 'main_home_screen.dart';
+import 'screens/home_section/main_home_screen.dart';
 import 'screens/create_post_section/create_post.dart';
 import 'screens/discover_section/discover_screen.dart';
 import 'screens/notification_section/notification_screen.dart';
-import 'screens/profile_section/empty_startup_profile.dart';
-
 class BottomNavigationScreen extends StatefulWidget {
   const BottomNavigationScreen({super.key});
   @override

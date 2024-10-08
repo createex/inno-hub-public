@@ -1,4 +1,4 @@
-class FeedsModel {
+class StaticModel {
   String profileImage;
   String name;
   String title;
@@ -7,7 +7,7 @@ class FeedsModel {
   String postImage;
 
   // Constructor
-  FeedsModel({
+  StaticModel({
     required this.profileImage,
     required this.name,
     required this.title,

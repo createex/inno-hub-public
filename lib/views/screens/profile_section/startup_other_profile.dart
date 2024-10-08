@@ -3,7 +3,7 @@
 // import 'package:get/get.dart';
 // import 'package:in_hub/controllers/utils/app_colors.dart';
 // import 'package:in_hub/controllers/utils/text_styles.dart';
-// import 'package:in_hub/models/feed_model.dart';
+// import 'package:in_hub/models/post_media_model.dart';
 // import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 // import 'package:responsive_sizer/responsive_sizer.dart';
 //
@@ -290,10 +290,11 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
-import 'package:in_hub/models/feed_model.dart';
+import 'package:in_hub/models/post_media_model.dart';
 import 'package:in_hub/views/screens/profile_section/profile_post_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../../models/static_model.dart';
 import 'detail_screen.dart';
 import 'edit_profile_screen.dart';
 import 'message_details_screen.dart';
@@ -301,8 +302,8 @@ import 'message_details_screen.dart';
 class StartUpOtherProfile extends StatelessWidget {
   StartUpOtherProfile({super.key});
   // Initialize with static data
-  final List<FeedsModel> data = [
-    FeedsModel(
+  final List<StaticModel> data = [
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'Zeeshan',
       title: 'Hello World',
@@ -311,7 +312,7 @@ class StartUpOtherProfile extends StatelessWidget {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'John Doe',
       title: 'Flutter is awesome!',
@@ -320,7 +321,7 @@ class StartUpOtherProfile extends StatelessWidget {
       'Taylor Swift was spotted at Aarowhead Stadium to cheer on boyfrien TraviKelce',
       postImage: 'assets/pngs/post.png',
     ),
-    FeedsModel(
+    StaticModel(
       profileImage: 'assets/pngs/profile.png',
       name: 'Jane Doe',
       title: 'Beautiful Day',

@@ -41,29 +41,21 @@ class AuthController extends GetxController {
   var lastName = ''.obs;
   var profileImage = ''.obs;
   RxString chooseLooking = ''.obs;
-  final List<String> looking = ["1", "2", "3", "4"];
-
+  final List<String> looking = ["looking 1", "looking 2", "looking 3", "looking 4"];
   RxString skillsCommunity = ''.obs;
-  final List<String> skills = ["1", "2", "3", "4"];
-
+  final List<String> skills = ["skills 1", "skills 2", "skills 3", "skills 4"];
   RxString rolesCommunity = ''.obs;
-  final List<String> roles = ["1", "2", "3", "4"];
-
+  final List<String> roles = ["roles 1", "roles 2", "roles 3", "roles 4"];
   RxString alreadyCommunity = ''.obs;
-  final List<String> already = ["1", "2", "3", "4"];
-
+  final List<String> already = ["already 1", "already 2", "already 3", "already 4"];
   RxString preferCommunity = ''.obs;
-  final List<String> prefer = ["1", "2", "3", "4"];
-
+  final List<String> prefer = ["prefer 1", "prefer 2", "prefer 3", "prefer 4"];
   RxString locationCommunity = ''.obs;
-  final List<String> location = ["1", "2", "3", "4"];
-
+  final List<String> location = ["location 1", "location 2", "location 3", "location 4"];
   RxString availableCommunity = ''.obs;
-  final List<String> available = ["1", "2", "3", "4"];
-
+  final List<String> available = ["available 1", "available 2", "available 3", "available 4"];
   RxString languageCommunity = ''.obs;
-  final List<String> language = ["1", "2", "3", "4"];
-
+  final List<String> language = ["language 1", "language 2", "language 3", "language 4"];
   // Method to upload profile image to Firebase Storage
   Future<String> uploadImageToStorage(String imagePath) async {
     try {
@@ -158,7 +150,6 @@ class AuthController extends GetxController {
   Future<void> fetchUserData(String uid) async {
     try {
       DocumentSnapshot userDoc = await firestore.collection('users').doc(uid).get();
-
       if (userDoc.exists) {
         firstName.value = userDoc['firstName'] ?? '';
         lastName.value = userDoc['lastName'] ?? '';

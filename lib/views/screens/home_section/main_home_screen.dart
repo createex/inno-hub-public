@@ -6,8 +6,9 @@ import 'package:in_hub/views/screens/custom_widgets/app_keys.dart';
 import 'package:in_hub/views/screens/chat_section/main_chat.dart';
 import 'package:in_hub/views/screens/search_section/search_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../controllers/utils/app_colors.dart';
-import 'feed_bar.dart';
+import '../../../controllers/getx_controllers/auth_controllers.dart';
+import '../../../controllers/utils/app_colors.dart';
+import 'home_post_screen.dart';
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({super.key});
@@ -19,7 +20,14 @@ class MainHomeScreen extends StatefulWidget {
 class _MainHomeScreenState extends State<MainHomeScreen> {
   final TextEditingController searchController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  AuthController authController =Get.put(AuthController());
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    String uid = authController.auth.currentUser!.uid;
+    authController.fetchUserData(uid);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +49,20 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                 GestureDetector(onTap: () {
                   AppKeys.scaffoldKey.currentState?.openDrawer();
                 },
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage("assets/pngs/iqrapro.png"),
-                    radius: 20,
-                  ),
+                  child: Obx((){
+                    return
+                    CircleAvatar(
+                      backgroundImage:authController.profileImage.value.isNotEmpty?
+                      NetworkImage(authController.profileImage.value)
+                          : const AssetImage("assets/pngs/iqrapro.png") as ImageProvider,
+                      radius: 20,
+                    );
+                  }
+
+                  )
                 ),
 
-                Spacer(),
+                const Spacer(),
                 Image.asset("assets/pngs/innoHubLogo.png"),
                 // getHorizontalSpace(2.w),
                 // Expanded(
@@ -111,14 +126,14 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                     ),
                   ),
                   SizedBox(height: 1.h), // Space between TabBar and TabBarView
-                  const Expanded(
+                  Expanded(
                     child: TabBarView(
                       children: [
                         // Content for Tab 1
-                        FeedsScreen(),
+                        HomePostScreen(),
                         // RentedScreen(),
                         // Content for Tab 2
-                        FeedsScreen()
+                         HomePostScreen()
                         // RentedHistoryScreen(),
                       ],
                     ),
