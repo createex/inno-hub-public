@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:136670123060:android:e71974cc7f9e9b54b4e661",
+        "mobilesdk_app_id": "1:136670123060:android:a2b245e0e1873246b4e661",
         "android_client_info": {
-          "package_name": "com.example.in_hub"
+          "package_name": "com.inno.hub"
         }
       },
       "oauth_client": [],

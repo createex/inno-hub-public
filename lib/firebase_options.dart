@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDIkVXaxE4x0xr0gedWQtLE_KVnlpbgqh4',
-    appId: '1:136670123060:android:e71974cc7f9e9b54b4e661',
+    appId: '1:136670123060:android:a2b245e0e1873246b4e661',
     messagingSenderId: '136670123060',
     projectId: 'inno-hub-35e30',
     storageBucket: 'inno-hub-35e30.appspot.com',
@@ -59,10 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDPMEje4vdPc7WlPMiv-FbZC89JNYFlWQI',
-    appId: '1:136670123060:ios:b54d61429187649bb4e661',
+    appId: '1:136670123060:ios:4f09e7d1cb9c8e3bb4e661',
     messagingSenderId: '136670123060',
     projectId: 'inno-hub-35e30',
     storageBucket: 'inno-hub-35e30.appspot.com',
-    iosBundleId: 'com.example.inHub',
+    iosBundleId: 'com.inno.hub',
   );
+
 }

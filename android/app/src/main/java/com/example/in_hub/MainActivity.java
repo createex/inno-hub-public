@@ -1,4 +1,4 @@
-package com.example.in_hub;
+package com.inno.hub;
 
 import io.flutter.embedding.android.FlutterActivity;
 
