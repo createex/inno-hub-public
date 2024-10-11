@@ -1,13 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class PostMediaModel {
   String profileImage;
+  String postId;
   String userName;
   String firstName;
   String lastName;
   DateTime createdAt;
   String aboutPost;
   String media;
+  String ownerId;
+  RxList<String> likes;
+  List<PostMediaModel> comments; // List of PostMediaModel for nested comments
 
   // Constructor
   PostMediaModel({
@@ -18,7 +23,11 @@ class PostMediaModel {
     required this.createdAt,
     required this.aboutPost,
     required this.media,
-  });
+    required List<String> likes,
+    required this.ownerId,
+    required this.comments,
+    required this.postId,
+  }) : likes = RxList<String>(likes);
 
   // Factory method to create PostMediaModel from Firestore document
   factory PostMediaModel.fromFirestore(DocumentSnapshot doc) {
@@ -32,6 +41,13 @@ class PostMediaModel {
       createdAt: (data['createdAt'] as Timestamp).toDate(), // Convert Firestore Timestamp to DateTime
       aboutPost: data['aboutPost'] ?? '',
       media: data['media'] ?? '',
+      likes: List<String>.from(data['likes'] ?? []),
+      comments: (data['comments'] as List<dynamic>?)
+          ?.map((commentMap) => PostMediaModel.fromMap(commentMap)) // Using PostMediaModel for nested comments
+          .toList() ??
+          [],
+      ownerId: data['ownerId'] ?? '',
+      postId: doc.id, // Set the user ID from Firestore data
     );
   }
 
@@ -45,6 +61,28 @@ class PostMediaModel {
       'createdAt': Timestamp.fromDate(createdAt), // Convert DateTime to Firestore Timestamp
       'aboutPost': aboutPost,
       'media': media,
+      'likes': likes,
+      'comments': comments.map((comment) => comment.toFirestore()).toList(), // Convert comments back to map
     };
+  }
+
+  // Factory method to create PostMediaModel from map
+  factory PostMediaModel.fromMap(Map<String, dynamic> map) {
+    return PostMediaModel(
+      profileImage: map['profileImage'] ?? '',
+      userName: map['userName'] ?? '',
+      firstName: map['firstName'] ?? '',
+      lastName: map['lastName'] ?? '',
+      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      aboutPost: map['aboutPost'] ?? '',
+      media: map['media'] ?? '',
+      likes: List<String>.from(map['likes'] ?? []),
+      comments: (map['comments'] as List<dynamic>?)
+          ?.map((commentMap) => PostMediaModel.fromMap(commentMap))
+          .toList() ??
+          [],
+      ownerId: map['ownerId'] ?? '',
+      postId: '',
+    );
   }
 }

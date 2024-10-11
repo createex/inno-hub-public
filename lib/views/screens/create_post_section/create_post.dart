@@ -85,13 +85,12 @@ class CreatePost extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 3.h),
 
                 // Display selected image
                 createPostController.image.value == null
                     ? const SizedBox.shrink()
                     : Container(
-                  height: 26.h,
+                  height: 30.h,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: FileImage(File(createPostController.image.value!.path)),

@@ -236,6 +236,30 @@ class AuthController extends GetxController {
     }
   }
 
+// Logout method
+  Future<void> logoutMethod() async {
+    try {
+      // Start loading state
+      isLoading.value = true;
+
+      // Sign out the current user
+      await auth.signOut();
+
+      // Navigate to the login screen
+      Get.offAll(() => LoginScreen());
+
+      log("User logged out successfully.");
+      showSuccessSnackBar("User logged out successfully.");
+
+    } catch (e) {
+      log("Error during logout: $e");
+      showErrorSnackBar("Error logging out. Please try again.");
+    } finally {
+      // Stop loading state
+      isLoading.value = false;
+    }
+  }
+
 }
 
 

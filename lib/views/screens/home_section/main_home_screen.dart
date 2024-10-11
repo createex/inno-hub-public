@@ -126,14 +126,14 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
                     ),
                   ),
                   SizedBox(height: 1.h), // Space between TabBar and TabBarView
-                  Expanded(
+                  const Expanded(
                     child: TabBarView(
                       children: [
                         // Content for Tab 1
-                        HomePostScreen(),
+                        HomePostScreen(  commentCount: '',),
                         // RentedScreen(),
                         // Content for Tab 2
-                         HomePostScreen()
+                         HomePostScreen(  commentCount: '',)
                         // RentedHistoryScreen(),
                       ],
                     ),

@@ -7,6 +7,7 @@ import 'package:in_hub/views/screens/profile_section/create_startup_profile.dart
 import 'package:in_hub/views/screens/profile_section/profile_screen.dart';
 import 'package:in_hub/views/screens/setting_section/setting_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../controllers/getx_controllers/auth_controllers.dart';
 import '../controllers/utils/app_colors.dart';
 import '../controllers/utils/text_styles.dart';
 import 'screens/home_section/main_home_screen.dart';
@@ -42,6 +43,14 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
     "assets/svgs/rateUs.svg",
     "assets/svgs/logOut.svg",
   ];
+  AuthController authController =Get.put(AuthController());
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    String uid = authController.auth.currentUser!.uid;
+    authController.fetchUserData(uid);
+  }
   @override
   Widget build(BuildContext context) {
     void navigateToScreen(int index) {
@@ -55,6 +64,15 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
           break;
         case 2:
           // Get.to(() => SettingScreen()); // Replace with actual screen
+          break;
+        case 3:
+        // Get.to(() => SettingScreen()); // Replace with actual screen
+          break;
+        case 4:
+        // Get.to(() => SettingScreen()); // Replace with actual screen
+          break;
+        case 5:
+        authController.logoutMethod();
           break;
       // Add more cases for additional screens
         default:
@@ -99,14 +117,18 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
                           onTap: () {
                             Get.to(() => ProfileScreen());
                           },
-                          child: const CircleAvatar(
-                            backgroundImage: AssetImage("assets/pngs/pngprofile.png"),
+                          child:   CircleAvatar(
+                            backgroundImage:authController.profileImage.value.isNotEmpty?
+                            NetworkImage(authController.profileImage.value)
+                                : const AssetImage("assets/pngs/iqrapro.png") as ImageProvider,
                             radius: 50,
-                          ),
+                          )
                         ),
                         SizedBox(height: 1.h),
                         Text(
-                          "Mohsin",
+                          authController.firstName.value.isNotEmpty && authController.lastName.value.isNotEmpty
+                              ? '${authController.firstName.value} ${authController.lastName.value}' // Concatenate first and last names
+                              : "Mohsin Ali",
                           style: AppTextStyles.textStartBlack,
                         ),
                         SizedBox(height: 2.h),
