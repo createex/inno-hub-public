@@ -7,7 +7,7 @@ import 'package:toggle_switch/toggle_switch.dart';
 import '../../../controllers/utils/app_colors.dart';
 import '../../../controllers/utils/text_styles.dart';
 import '../custom_widgets/custom_textformfield.dart';
-import '../profile_section/edit_profile_screen.dart';
+import '../user_profile_section/edit_profile_screen.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({Key? key}) : super(key: key);

@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
   }
+
   void _checkLoginStatus() {
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser != null) {

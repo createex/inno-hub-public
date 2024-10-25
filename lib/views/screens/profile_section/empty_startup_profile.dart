@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
-import 'package:in_hub/views/screens/profile_section/create_startup_profile.dart';
+import 'package:in_hub/views/screens/start_up_section/create_startup_profile.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../chat_section/main_chat.dart';

@@ -291,13 +291,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/models/post_media_model.dart';
-import 'package:in_hub/views/screens/profile_section/profile_post_screen.dart';
+import 'package:in_hub/views/screens/user_profile_section/user_post_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../models/static_model.dart';
-import 'detail_screen.dart';
-import 'edit_profile_screen.dart';
-import 'message_details_screen.dart';
+import '../user_profile_section/user_detail_screen.dart';
+import '../user_profile_section/edit_profile_screen.dart';
+import '../profile_section/message_details_screen.dart';
 
 class StartUpOtherProfile extends StatelessWidget {
   StartUpOtherProfile({super.key});
@@ -444,19 +444,15 @@ class StartUpOtherProfile extends StatelessWidget {
                   )),
                 ],
               ),
-
-              SizedBox(
-                height: .4.h,
-              ),
+              SizedBox(height: .4.h,),
               Text(
                 "Software engineering",
                 style: AppTextStyles.boldTextStyle.copyWith(
                     color: const Color(0xff424348),
                     fontSize: 14.px,fontWeight: FontWeight.w500
                 ),
-              ),              SizedBox(
-                height: .4.h,
               ),
+              SizedBox(height: .4.h,),
               Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset("assets/svgs/location1.svg"),
@@ -609,7 +605,7 @@ class StartUpOtherProfile extends StatelessWidget {
                             // Content for Tab 1
                             MessageDetailsScreen(),
                             // Content for Tab 2
-                            ProfilePostScreen(),
+                            UserPostScreen(),
                           ],
                         ),
                       ),

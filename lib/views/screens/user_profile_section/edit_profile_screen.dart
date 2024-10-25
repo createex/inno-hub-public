@@ -8,7 +8,7 @@ import 'package:in_hub/controllers/utils/text_styles.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../controllers/getx_controllers/user_profile_controller.dart';
-import 'startup_own_profile.dart';
+import '../start_up_section/startup_own_profile.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -21,9 +21,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final userProfileController = Get.put(UserProfileController());
 
   // Define TextEditingControllers for each text field
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController firstController = TextEditingController();
+  final TextEditingController lastController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController aboutController = TextEditingController();
   final TextEditingController currentPositionController = TextEditingController();
   final TextEditingController companyController = TextEditingController();
@@ -38,17 +38,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   // Reactive lists to store skills and looking-for items
   final RxList<String> skills = <String>[].obs;
-  final RxList<String> lookingForItems = <String>[].obs;
-  final RxList<String> rolesList = <String>[].obs;
+  final RxList<String> chooseLooking = <String>[].obs;
+  final RxList<String> rolesCommunity = <String>[].obs;
   final RxList<String> industryInterestList = <String>[].obs;
-  final RxList<String> languagesList = <String>[].obs;
+  final RxList<String> languageCommunity = <String>[].obs;
+
 
   @override
   void dispose() {
     // Dispose controllers to avoid memory leaks
-    firstNameController.dispose();
-    lastNameController.dispose();
-    usernameController.dispose();
+    firstController.dispose();
+    lastController.dispose();
+    userNameController.dispose();
     aboutController.dispose();
     currentPositionController.dispose();
     companyController.dispose();
@@ -105,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(height: 4.h),
                 SizedBox(height: 2.h),
                 // Other form fields here...
-                customTextFormFieldProfile(controller: usernameController, title: "Username"),
+                customTextFormFieldProfile(controller: userNameController, title: "Username"),
                 SizedBox(height: 1.5.h),
                 customTextFormFieldProfile(controller: aboutController, title: "About"),
                 SizedBox(height: 1.5.h),
@@ -140,12 +141,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   verticalPadding: 1.2.h,
                   onChanged: (value) {
                     if (value.endsWith(',')) {
-                      addItem(value.replaceAll(',', ''), lookingForItems, lookingForController); // Add looking-for item when comma is pressed
+                      addItem(value.replaceAll(',', ''), chooseLooking, lookingForController); // Add looking-for item when comma is pressed
                     }
                   },
                 ),
                 SizedBox(height: 1.5.h),
-                itemsWrap(lookingForItems, removeItem),
+                itemsWrap(chooseLooking, removeItem),
                 SizedBox(height: 1.5.h),
 
                 // Roles I can fulfill
@@ -156,12 +157,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   verticalPadding: 1.2.h,
                   onChanged: (value) {
                     if (value.endsWith(',')) {
-                      addItem(value.replaceAll(',', ''), rolesList, rolesController); // Add looking-for item when comma is pressed
+                      addItem(value.replaceAll(',', ''), rolesCommunity, rolesController); // Add looking-for item when comma is pressed
                     }
                   },
                 ),
                 SizedBox(height: 1.5.h),
-                itemsWrap(rolesList, removeItem),
+                itemsWrap(rolesCommunity, removeItem),
                 SizedBox(height: 1.5.h),
 
                 // Industry Interests
@@ -189,12 +190,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   verticalPadding: 1.2.h,
                   onChanged: (value) {
                     if (value.endsWith(',')) {
-                      addItem(value.replaceAll(',', ''), languagesList, languagesController); // Add looking-for item when comma is pressed
+                      addItem(value.replaceAll(',', ''), languageCommunity, languagesController); // Add looking-for item when comma is pressed
                     }
                   },
                 ),
                 SizedBox(height: 1.5.h),
-                itemsWrap(languagesList, removeItem),
+                itemsWrap(languageCommunity, removeItem),
                 SizedBox(height: 1.5.h),
 
                 SizedBox(height: 2.h),
@@ -207,21 +208,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       print("UID $uid");
                       await userProfileController.updateUserProfile(
                         uid: uid,
-                        username: usernameController.text.trim(),
+                        username: userNameController.text.trim(),
                         about: aboutController.text.trim(),
                         currentPosition: currentPositionController.text.trim(),
                         company: companyController.text.trim(),
                         location: locationController.text.trim(),
                         skills: skills.toList(),
-                        lookingForItems: lookingForItems.toList(),
-                        rolesList: rolesList.toList(),
+                        chooseLooking: chooseLooking.toList(),
+                        rolesCommunity: rolesCommunity.toList(),
                         industryInterests: industryInterestList.toList(),
-                        languages: languagesList.toList(),
+                        languageCommunity: languageCommunity.toList(),
                       );
 
                       // Navigate to the StartUpOwnProfile screen after updating
-                      Get.to(() => StartUpOwnProfile());
-                      showSuccessSnackBar("User Data Added");
+                      // Get.to(() => StartUpOwnProfile());
+                      showSuccessSnackBar("User Data Updated Successfully");
                     },
                     title: Text("Create Profile", style: AppTextStyles.buttonTextStyle),
                   ),

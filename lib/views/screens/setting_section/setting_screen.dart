@@ -7,8 +7,13 @@ import 'package:in_hub/views/screens/invitation_section/manage_invitation.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
+import '../../../controllers/getx_controllers/user_selection_controller.dart';
+import '../custom_widgets/custom_widgets.dart';
+
 class SettingScreen extends StatelessWidget {
   SettingScreen({super.key});
+  List<String>data=["Zeeshan","usman","adnan","ali"];
+  List<String>data1=["UI/UX Designer","UI/UX Designer","UI/UX Designer","UI/UX Designer"];
   final RxList<String> titles = <String>[
     "Change password",
     "In-App Notifications",
@@ -44,6 +49,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
@@ -85,7 +91,9 @@ class SettingScreen extends StatelessWidget {
                   child: GestureDetector(
                     onTap: (){
                       // Get.to(()=>const ManageInvitation());
-                      showAlertDialog(context);
+                      // showAlertDialog(context);
+                      // showAllUsersDialog(context);
+                      showAddTeamMember(context);
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,5 +225,181 @@ class SettingScreen extends StatelessWidget {
       },
     );
   }
+  void showAddTeamMember(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3.5.h),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(3.5.h),
+            ),
+            padding: EdgeInsets.all(25.px),
+            constraints: BoxConstraints(
+              minWidth: 300, // Set a minimum width
+              minHeight: 350, // Set a minimum height
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start, // Align content at the top
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Spacer(),
+                    Text("Add Team Member"),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Icon(
+                        size: 24,
+                        Icons.cancel_rounded,
+                        color: AppColors.redColor3,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 3.h),
+                CircleAvatar(radius: 24,
+                    child: Icon(Icons.person)),
+                SizedBox(height: 1.h),
+                Text("Ralph Edwards"),
+                SizedBox(height: 3.h),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Role", style: TextStyle(fontWeight: FontWeight.w500)),
+                ),
+                SizedBox(height: 0.5.h),
+                customTextFormFieldProfile(
+                  title: "",
+                ),
+                SizedBox(height: 3.h),
+                GestureDetector(
+                  onTap: () {
+                    // Add your logic here for adding the team member
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 8.px),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: AppColors.greenColor,
+                      borderRadius: BorderRadius.circular(1.2.h),
+                    ),
+                    child: Text(
+                      'Add',
+                      style: AppTextStyles.textCancel,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
+  void showAllUsersDialog(BuildContext context) {
+    // Instantiate UserSelectionController
+    final userSelectionController = Get.put(UserSelectionController());
+
+    // Reset the selected index whenever the dialog is opened
+    userSelectionController.selectedIndex.value = -1;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3.5),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(3.5),
+            ),
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context); // Close dialog
+                    },
+                    child: const Icon(
+                      Icons.cancel_rounded,
+                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: "Search",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                SizedBox(
+                  height: 300,
+                  child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return Obx(() {
+                        return Stack(
+                          children: [
+                            Container(
+                              child: ListTile(
+                                onTap: () {
+                                  userSelectionController.selectedIndex.value = index;
+                                  print("Selected Index: ${userSelectionController.selectedIndex.value}"); // Update selection
+                                },
+                                leading: const CircleAvatar(child: Icon(Icons.person)),
+                                title: Text(data[index]),
+                                subtitle: Text(data1[index]),
+                                tileColor: Colors.white,
+                              ),
+                            ),
+                            // Show grey container on top of the ListTile if selected
+                            if (userSelectionController.selectedIndex.value == index)
+                              Container(
+                                padding:EdgeInsets.all(8),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(8)
+                                ),// Adjust opacity as needed
+                                width: double.infinity,
+                                height: 56, // Height should match ListTile height
+                                alignment: Alignment.center,
+
+                              ),
+                          ],
+                        );
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

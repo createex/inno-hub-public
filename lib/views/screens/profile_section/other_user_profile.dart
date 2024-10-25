@@ -8,7 +8,7 @@ import 'package:in_hub/views/screens/chat_section/chatroom_screen.dart';
 import 'package:in_hub/views/screens/custom_widgets/custom_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../models/static_model.dart';
-import 'detail_screen.dart';
+import '../user_profile_section/user_detail_screen.dart';
 import 'message_post_details.dart';
 
 class OtherUserProfile extends StatelessWidget {
@@ -325,7 +325,7 @@ class OtherUserProfile extends StatelessWidget {
                       child: TabBarView(
                         children: [
                           // Content for Tab 1
-                          DetailScreen(),
+                          UserDetailScreen(),
                           // Content for Tab 2
                           MessagePostDetails(),
                         ],

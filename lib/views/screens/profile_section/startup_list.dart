@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:in_hub/views/screens/profile_section/startup_own_profile.dart';
+import 'package:in_hub/views/screens/start_up_section/startup_own_profile.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../chat_section/main_chat.dart';
@@ -80,7 +80,28 @@ class _StartupListState extends State<StartupList> {
         SizedBox(height: 2.h,),
         Expanded(
           child: GestureDetector(onTap: () {
-            Get.to(()=>StartUpOwnProfile());
+            Get.to(()=>StartUpOwnProfile(
+              foundingStage: "",
+              investStage: "",
+              lookingFor:"",
+              marketAndCustomers: "",
+               productStatus: "",
+              targetMarket: "",
+              team: "",
+              technology: "",
+              vision: "",
+              challenges: "",
+              companyOverview: "",
+              companySize: "",
+              foundingAndGrowth: "",
+              documentId: '',
+              startUpName: '',
+              startUpField: '',
+              startUpUserName: '',
+              startUpWebsite: '',
+              startUpLocation: '',
+              profileImage: '',
+            ));
           },
             child: ListView.builder(
               padding: EdgeInsets.zero,

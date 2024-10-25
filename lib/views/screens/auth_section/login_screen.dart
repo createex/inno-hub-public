@@ -10,7 +10,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../controllers/getx_controllers/auth_controllers.dart';
 import '../../../controllers/utils/app_colors.dart';
 import '../../../controllers/utils/text_styles.dart';
-import '../../bottom_navigation_bar.dart';
 import '../custom_widgets/custom_widgets.dart';
 
 class LoginScreen extends StatelessWidget {

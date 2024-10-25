@@ -275,7 +275,7 @@ RxBool isChecked=false.obs;
                              style:TextStyle(color: Colors.black,fontSize: 13),
                              overflow: TextOverflow.ellipsis,
                            ),
-                           items: authController.location.map((String communityName) {
+                           items: authController.location1.map((String communityName) {
                              return DropdownMenuItem<String>(
                                value: communityName,
                                child: Text(
@@ -309,7 +309,7 @@ RxBool isChecked=false.obs;
                              style:TextStyle(color: Colors.black,fontSize: 13),
                              overflow: TextOverflow.ellipsis,
                            ),
-                           items: authController.location.map((String communityName) {
+                           items: authController.location1.map((String communityName) {
                              return DropdownMenuItem<String>(
                                value: communityName,
                                child: Text(

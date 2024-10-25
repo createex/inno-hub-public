@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:in_hub/controllers/utils/app_colors.dart';
 import 'package:in_hub/controllers/utils/text_styles.dart';
-import 'package:in_hub/views/screens/profile_section/profile_screen.dart';
+import 'package:in_hub/views/screens/user_profile_section/profile_screen.dart';
 import 'package:in_hub/views/screens/setting_section/setting_screen.dart';
 
 import 'package:responsive_sizer/responsive_sizer.dart';

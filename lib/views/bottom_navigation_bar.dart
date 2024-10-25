@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:in_hub/models/start_up_profile_model.dart';
 import 'package:in_hub/views/screens/custom_widgets/app_keys.dart';
+import 'package:in_hub/views/screens/discover_section/start_up_follow_screen.dart';
 import 'package:in_hub/views/screens/invitation_section/manage_invitation.dart';
-import 'package:in_hub/views/screens/profile_section/create_startup_profile.dart';
-import 'package:in_hub/views/screens/profile_section/profile_screen.dart';
+import 'package:in_hub/views/screens/start_up_section/create_startup_profile.dart';
+import 'package:in_hub/views/screens/start_up_section/startup_own_profile.dart';
+import 'package:in_hub/views/screens/user_profile_section/profile_screen.dart';
 import 'package:in_hub/views/screens/setting_section/setting_screen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../controllers/getx_controllers/auth_controllers.dart';
+import '../controllers/getx_controllers/create_startup_profile_controller.dart';
 import '../controllers/utils/app_colors.dart';
 import '../controllers/utils/text_styles.dart';
 import 'screens/home_section/main_home_screen.dart';
@@ -23,6 +28,7 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
   RxString? chooseStartUp = RxString('');
   final List<String> startup = ["startUp 1", "startUp 2",
     "startUp 3", "startUp 4"];
+
   final RxInt currentIndex = 0.obs;
   // final ImagePickerProfileController imagePickerProfileController = Get.put(ImagePickerProfileController());
   final List<String> names = [
@@ -50,7 +56,15 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
     super.initState();
     String uid = authController.auth.currentUser!.uid;
     authController.fetchUserData(uid);
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    createStartUpProfileController.listenForStartups(userId);
+    createStartUpProfileController.fetchUserStartups(userId);
   }
+  RxString selectedStartupName = ''.obs; // This will store the selected startup name
+  RxString selectedStartupProfileImage = ''.obs; // This will store the selected startup name
+
+  CreateStartUpProfileController createStartUpProfileController =Get.put(CreateStartUpProfileController());
+
   @override
   Widget build(BuildContext context) {
     void navigateToScreen(int index) {
@@ -114,58 +128,122 @@ class BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         ),
                         SizedBox(height: 3.h),
                         GestureDetector(
-                          onTap: () {
-                            Get.to(() => ProfileScreen());
-                          },
-                          child:   CircleAvatar(
-                            backgroundImage:authController.profileImage.value.isNotEmpty?
-                            NetworkImage(authController.profileImage.value)
-                                : const AssetImage("assets/pngs/iqrapro.png") as ImageProvider,
+                            onTap: () {
+                              if (selectedStartupName.value.isNotEmpty) {
+                                // Ensure that the startup exists before accessing it
+                                var selectedStartup = createStartUpProfileController.startupList
+                                    .firstWhereOrNull((startup) => startup.startUpName == selectedStartupName.value);
+
+                                if (selectedStartup != null) {
+                                  String selectedStartupId = selectedStartup.documentId;
+                                  String selectedStartupNameValue  = selectedStartup.startUpName;
+                                  String selectedStartupUserNameValue  = selectedStartup.startUpUserName;
+                                  String selectedStartUpWebsiteValue  = selectedStartup.startUpWebsite;
+                                  String selectedStartUpLocationValue  = selectedStartup.startUpLocation;
+                                  String selectedStartUpFieldValue  = selectedStartup.startUpField;
+                                  String selectedProfileImageValue  = selectedStartup.profileImage;
+                                  String selectedCompanyOverviewValue  = selectedStartup.companyOverview;
+                                  String selectedChallengesValue  = selectedStartup.challenges;
+                                  String selectedVisionValue  = selectedStartup.vision;
+                                  String selectedLookingForValue  = selectedStartup.lookingFor;
+                                  String selectedProductStatusValue  = selectedStartup.productStatus;
+                                  String selectedTechnologyValue  = selectedStartup.technology;
+                                  String selectedMarketAndCustomersValue  = selectedStartup.marketAndCustomers;
+                                  String selectedTargetMarketValue  = selectedStartup.targetMarket;
+                                  String selectedCompanySizeValue  = selectedStartup.companySize;
+                                  String selectedFoundingAndGrowthValue  = selectedStartup.foundingAndGrowth;
+                                  String selectedFoundingStageValue  = selectedStartup.foundingStage;
+                                  String selectedInvestStageValue  = selectedStartup.investStage;
+                                  String selectedTeamValue  = selectedStartup.team;
+                                  Get.to(() => StartUpOwnProfile(
+                                    documentId: selectedStartupId,
+                                    startUpName: selectedStartupNameValue,
+                                    startUpUserName: selectedStartupUserNameValue,
+                                    startUpWebsite:selectedStartUpWebsiteValue,
+                                    startUpLocation:selectedStartUpLocationValue,
+                                    startUpField:selectedStartUpFieldValue,
+                                    profileImage:selectedProfileImageValue,
+                                    companyOverview:selectedCompanyOverviewValue,
+                                    challenges:selectedChallengesValue,
+                                    vision:selectedVisionValue,
+                                    lookingFor:selectedLookingForValue,
+                                    productStatus:selectedProductStatusValue,
+                                    technology:selectedTechnologyValue,
+                                    marketAndCustomers:selectedMarketAndCustomersValue,
+                                    targetMarket:selectedTargetMarketValue,
+                                    companySize:selectedCompanySizeValue,
+                                    foundingAndGrowth:selectedFoundingAndGrowthValue,
+                                    foundingStage:selectedFoundingStageValue,
+                                    investStage:selectedInvestStageValue,
+                                    team:selectedTeamValue,
+                                  ));
+                                } else {
+                                  Get.snackbar('Error', 'Startup not found');
+                                }
+                              } else {
+                                Get.to(() => ProfileScreen());
+                              }
+                            },
+                          child: CircleAvatar(
+                            backgroundImage: selectedStartupProfileImage.value.isNotEmpty
+                                ? NetworkImage(selectedStartupProfileImage.value) // Show startup's profile image if selected
+                                : authController.profileImage.value.isNotEmpty
+                                ? NetworkImage(authController.profileImage.value) // Show user's profile image if no startup selected
+                                : const AssetImage("assets/pngs/iqrapro.png") as ImageProvider, // Default image
                             radius: 50,
-                          )
+                          ),
                         ),
                         SizedBox(height: 1.h),
                         Text(
-                          authController.firstName.value.isNotEmpty && authController.lastName.value.isNotEmpty
-                              ? '${authController.firstName.value} ${authController.lastName.value}' // Concatenate first and last names
-                              : "Mohsin Ali",
+                          selectedStartupName.value.isNotEmpty // If a startup is selected, show its name
+                              ? selectedStartupName.value
+                              : (authController.firstName.value.isNotEmpty && authController.lastName.value.isNotEmpty
+                              ? '${authController.firstName.value} ${authController.lastName.value}' // Show user’s first and last names
+                              : "Mohsin Ali"), // Default name if no data is available
                           style: AppTextStyles.textStartBlack,
                         ),
+
                         SizedBox(height: 2.h),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 5.w),
                           padding: const EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(color: Colors.white,
-                            border: Border.all(
-                                color:AppColors.greyColor.withOpacity(0.2)
-                            ),
-                            borderRadius: BorderRadius.circular(8),),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: AppColors.greyColor.withOpacity(0.2)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           child: DropdownButtonHideUnderline(
                             child: Obx(() {
-                              return DropdownButton<String>(
+                              return DropdownButton<StartupProfileModel>( // Ensure the type is StartupProfileModel
                                 isExpanded: true,
                                 hint: Text(
-                                  chooseStartUp!.value.isEmpty ? 'My Profile' : chooseStartUp!.value,
-                                  style:AppTextStyles.textAccountBlack,
+                                  createStartUpProfileController.chooseStartUp.isEmpty
+                                      ? 'My Profile'
+                                      : createStartUpProfileController.chooseStartUp.value,
+                                  style: AppTextStyles.textAccountBlack,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                items: startup.map((String communityName) {
-                                  return DropdownMenuItem<String>(
-                                    value: communityName,
+                                items: createStartUpProfileController.startupList.map((StartupProfileModel startup) { // Ensure you're using the correct model type here
+                                  return DropdownMenuItem<StartupProfileModel>( // Ensure you're using the same model type
+                                    value: startup,
                                     child: Text(
-                                      communityName,
-                                      style:AppTextStyles.textAccountBlack,
+                                      startup.startUpName, // Display the startup name
+                                      style: AppTextStyles.textAccountBlack,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   );
                                 }).toList(),
-                                onChanged: (String? value) {
-                                  chooseStartUp!.value = value!;
+                                onChanged: (StartupProfileModel? value) {
+                                  if (value != null) {
+                                    createStartUpProfileController.chooseStartUp.value = value.startUpName; // Update chosen startup name
+                                    selectedStartupName.value = value.startUpName; // Update selected startup name
+                                    selectedStartupProfileImage.value = value.profileImage; // Update selected startup profile image
+                                  }
                                 },
                               );
                             }),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

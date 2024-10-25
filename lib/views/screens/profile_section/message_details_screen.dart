@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:in_hub/views/screens/profile_section/work_experience.dart';
+import 'package:in_hub/views/screens/user_profile_section/user_work_experience.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'education_experience.dart';
+import '../user_profile_section/user_education_experience.dart';
 class MessageDetailsScreen extends StatefulWidget {
   const MessageDetailsScreen({super.key});
   @override

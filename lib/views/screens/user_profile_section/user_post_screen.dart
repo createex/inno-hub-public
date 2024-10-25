@@ -4,14 +4,13 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../controllers/utils/app_colors.dart';
 import '../../../controllers/utils/text_styles.dart';
 import '../../../models/static_model.dart';
-class ProfilePostScreen extends StatefulWidget {
-  const ProfilePostScreen({Key? key}) : super(key: key);
-
+class UserPostScreen extends StatefulWidget {
+  const UserPostScreen({super.key});
   @override
-  State<ProfilePostScreen> createState() => _ProfilePostScreenState();
+  State<UserPostScreen> createState() => _UserPostScreenState();
 }
 
-class _ProfilePostScreenState extends State<ProfilePostScreen> {
+class _UserPostScreenState extends State<UserPostScreen> {
   final List<StaticModel> data = [
     StaticModel(
       profileImage: 'assets/pngs/profile.png',
