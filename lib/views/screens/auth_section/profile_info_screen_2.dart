@@ -10,6 +10,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../controllers/getx_controllers/auth_controllers.dart';
+
 class ProfessionalInformation2 extends StatelessWidget {
   ProfessionalInformation2({super.key});
   final TextEditingController firstController = TextEditingController();
@@ -23,7 +24,7 @@ class ProfessionalInformation2 extends StatelessWidget {
   final RxBool preference = false.obs;
   final RxBool availability = false.obs;
   final RxBool languages = false.obs;
-RxBool isChecked=false.obs;
+  RxBool isChecked = false.obs;
   final RxInt isSelected = 0.obs;
   @override
   Widget build(BuildContext context) {
@@ -88,332 +89,487 @@ RxBool isChecked=false.obs;
                   SizedBox(
                     height: 2.h,
                   ),
-             SizedBox(height: MediaQuery.of(context).size.height*.43,
-               child: ListView.builder(itemCount: 1,
-                   itemBuilder: (context,index){
-                 return  Column(children: [
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                            authController. chooseLooking.value.isEmpty ? 'Looking for' :authController. chooseLooking.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items:authController. looking.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                            authController. chooseLooking.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(
-                     height: 1.6.h,
-                   ),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(
-                       color: Colors.white,
-                       border: Border.all(color: Colors.grey),
-                       borderRadius: BorderRadius.circular(8),
-                     ),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController.skillsCommunity.value.isEmpty ? 'Skills' : authController.skillsCommunity.value,
-                             style: TextStyle(color: Colors.black, fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: authController.skills.map((String skillName) {
-                             return DropdownMenuItem<String>(
-                               value: skillName,
-                               child: Text(
-                                 skillName,
-                                 style: TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController.skillsCommunity.value = value!;
-                             log("User selected skillsCommunity: ${authController.skillsCommunity.value}");
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(height: 1.6.h,),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController.rolesCommunity.value.isEmpty ? 'I can take on these Roles' :authController. rolesCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items:authController. roles.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController. rolesCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(height: 1.6.h,),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController.alreadyCommunity.value.isEmpty ? 'I can take on these Roles' :authController. alreadyCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items:authController. already.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController. alreadyCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(
-                     height: 1.6.h,
-                   ),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController.preferCommunity.value.isEmpty ? 'prefer industries' :authController. preferCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: authController.prefer.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController.preferCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(
-                     height: 1.6.h,
-                   ),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController.locationCommunity.value.isEmpty ? 'Location preference' : authController.locationCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: authController.location1.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController. locationCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   SizedBox(
-                     height: 1.6.h,
-                   ),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                             authController. availableCommunity.value.isEmpty ? 'Availability' :authController. availableCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: authController.location1.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController.availableCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                   //1
-                   SizedBox(
-                     height: 1.6.h,
-                   ),
-                   Container(
-                     padding: const EdgeInsets.symmetric(horizontal: 12),
-                     decoration: BoxDecoration(color:Colors.white,
-                       border: Border.all(color:Colors.grey),
-                       borderRadius: BorderRadius.circular(8),),
-                     child: DropdownButtonHideUnderline(
-                       child: Obx(() {
-                         return DropdownButton<String>(
-                           isExpanded: true,
-                           hint: Text(
-                           authController.languageCommunity.value.isEmpty ? 'Availability' : authController.languageCommunity!.value,
-                             style:TextStyle(color: Colors.black,fontSize: 13),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: authController.language.map((String communityName) {
-                             return DropdownMenuItem<String>(
-                               value: communityName,
-                               child: Text(
-                                 communityName,
-                                 style:TextStyle(color: Colors.black),
-                                 overflow: TextOverflow.ellipsis,
-                               ),
-                             );
-                           }).toList(),
-                           onChanged: (String? value) {
-                             authController.languageCommunity.value = value!;
-                           },
-                         );
-                       }),
-                     ),
-                   ),
-                 ],);
-               }),
-             ),
-                  SizedBox(height: 1.6.h,),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .43,
+                    child: ListView.builder(
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              //  Container(
+                              //    padding: const EdgeInsets.symmetric(horizontal: 12),
+                              //    decoration: BoxDecoration(color:Colors.white,
+                              //      border: Border.all(color:Colors.grey),
+                              //      borderRadius: BorderRadius.circular(8),),
+                              //    child: DropdownButtonHideUnderline(
+                              //      child: Obx(() {
+                              //        return DropdownButton<String>(
+                              //          isExpanded: true,
+                              //          hint: Text(
+                              //           authController. chooseLooking.value.isEmpty ? 'Looking for' :authController. chooseLooking.value,
+                              //            style:TextStyle(color: Colors.black,fontSize: 13),
+                              //            overflow: TextOverflow.ellipsis,
+                              //          ),
+                              //          items:authController. looking.map((String communityName) {
+                              //            return DropdownMenuItem<String>(
+                              //              value: communityName,
+                              //              child: Text(
+                              //                communityName,
+                              //                style:TextStyle(color: Colors.black),
+                              //                overflow: TextOverflow.ellipsis,
+                              //              ),
+                              //            );
+                              //          }).toList(),
+                              //          onChanged: (String? value) {
+                              //           authController. chooseLooking.value = value!;
+                              //          },
+                              //        );
+                              //      }),
+                              //    ),
+                              //  ),
+
+                              //Container with a required marker
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Row(
+                                        children: [
+                                          Text(
+                                            authController
+                                                    .chooseLooking.value.isEmpty
+                                                ? 'Looking for'
+                                                : authController
+                                                    .chooseLooking.value,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 13),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          if (authController
+                                              .chooseLooking.value.isEmpty)
+                                            Text(
+                                              ' *',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 13),
+                                            ),
+                                        ],
+                                      ),
+                                      items: authController.looking
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.chooseLooking.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .skillsCommunity.value.isEmpty
+                                            ? 'Skills'
+                                            : authController
+                                                .skillsCommunity.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.skills
+                                          .map((String skillName) {
+                                        return DropdownMenuItem<String>(
+                                          value: skillName,
+                                          child: Text(
+                                            skillName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.skillsCommunity.value =
+                                            value!;
+                                        log("User selected skillsCommunity: ${authController.skillsCommunity.value}");
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .rolesCommunity.value.isEmpty
+                                            ? 'I can take on these Roles'
+                                            : authController
+                                                .rolesCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.roles
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.rolesCommunity.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .alreadyCommunity.value.isEmpty
+                                            ? 'I can take on these Roles'
+                                            : authController
+                                                .alreadyCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.already
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.alreadyCommunity.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .preferCommunity.value.isEmpty
+                                            ? 'prefer industries'
+                                            : authController
+                                                .preferCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.prefer
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.preferCommunity.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .locationCommunity.value.isEmpty
+                                            ? 'Location preference'
+                                            : authController
+                                                .locationCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.location1
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.locationCommunity.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController.availableCommunity.value
+                                                .isEmpty
+                                            ? 'Availability'
+                                            : authController
+                                                .availableCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.location1
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController
+                                            .availableCommunity.value = value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                              //1
+                              SizedBox(
+                                height: 1.6.h,
+                              ),
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(color: Colors.grey),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: DropdownButtonHideUnderline(
+                                  child: Obx(() {
+                                    return DropdownButton<String>(
+                                      isExpanded: true,
+                                      hint: Text(
+                                        authController
+                                                .languageCommunity.value.isEmpty
+                                            ? 'Availability'
+                                            : authController
+                                                .languageCommunity!.value,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 13),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: authController.language
+                                          .map((String communityName) {
+                                        return DropdownMenuItem<String>(
+                                          value: communityName,
+                                          child: Text(
+                                            communityName,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (String? value) {
+                                        authController.languageCommunity.value =
+                                            value!;
+                                      },
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
                   Center(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Obx(() => GestureDetector(
-                          onTap: () {
-                            isChecked.value = !isChecked.value;
-                          },
-                          child: Container(
-                            height: 21,
-                            width: 21,
-                            decoration: BoxDecoration(
-                              color: isChecked.value ? Colors.white : Colors.transparent, // White background when checked
-                              border: Border.all(
-                                color: Colors.green, // Always show green border
-                                width: 2.0, // Fixed green border width
+                              onTap: () {
+                                isChecked.value = !isChecked.value;
+                              },
+                              child: Container(
+                                height: 21,
+                                width: 21,
+                                decoration: BoxDecoration(
+                                  color: isChecked.value
+                                      ? Colors.white
+                                      : Colors
+                                          .transparent, // White background when checked
+                                  border: Border.all(
+                                    color: Colors
+                                        .green, // Always show green border
+                                    width: 2.0, // Fixed green border width
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                      4.0), // Optional: make it look more like a checkbox
+                                ),
+                                child: isChecked.value
+                                    ? Center(
+                                        child: Icon(
+                                          Icons.check,
+                                          color: Colors
+                                              .green, // Green tick when checked
+                                          size: 18,
+                                        ),
+                                      )
+                                    : null, // No icon when unchecked
                               ),
-                              borderRadius: BorderRadius.circular(4.0), // Optional: make it look more like a checkbox
-                            ),
-                            child: isChecked.value
-                                ? Center(
-                                  child: Icon(
-                                                                Icons.check,
-                                                                color: Colors.green, // Green tick when checked
-                                                                size: 18,
-                                                              ),
-                                )
-                                : null, // No icon when unchecked
-                          ),
-                        )),
-                        SizedBox(width: 2.w,),
+                            )),
+                        SizedBox(
+                          width: 2.w,
+                        ),
                         Expanded(
                           child: RichText(
                             text: const TextSpan(
                               text: 'I agree to Innohub ',
-                              style: TextStyle(fontSize: 14, color: Colors.black),
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.black),
                               children: [
                                 TextSpan(
                                   text: 'Terms of Service',
-                                  style: TextStyle(fontSize: 12, color: Color(0xff007AFF)),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Color(0xff007AFF)),
                                 ),
                                 TextSpan(
                                   text: ' and ',
-                                  style: TextStyle(fontSize: 12, color: Colors.black),
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black),
                                 ),
                                 TextSpan(
                                   text: 'Privacy Policy',
                                   style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xff007AFF)),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Color(0xff007AFF)),
                                 ),
                               ],
                             ),
@@ -422,7 +578,9 @@ RxBool isChecked=false.obs;
                       ],
                     ),
                   ),
-                  SizedBox(height: 1.6.h,),
+                  SizedBox(
+                    height: 1.6.h,
+                  ),
                   // GestureDetector(
                   //   onTap: () {
                   //     isOpenSelect.value = !isOpenSelect.value;
@@ -508,36 +666,40 @@ RxBool isChecked=false.obs;
                   //         )),
                   //   ),
                   // ),
-                  SizedBox(height: 2.h,),
+                  SizedBox(
+                    height: 2.h,
+                  ),
                   Obx(() => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18.w),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: customElevatedButton(
-                            bgColor: AppColors.primaryColor,
-                            onTap: () async {
-                              await authController.signUpMethod();
-
-
-                            },
-                            title: authController.isLoading.value
-                                ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 30.px)
-                                : Text(
-                              'Create Profile',
-                              style: AppTextStyles.buttonTextStyle,
+                        padding: EdgeInsets.symmetric(horizontal: 18.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: customElevatedButton(
+                                bgColor: AppColors.primaryColor,
+                                onTap: () async {
+                                  await authController.signUpMethod();
+                                },
+                                title: authController.isLoading.value
+                                    ? LoadingAnimationWidget.waveDots(
+                                        color: Colors.white, size: 30.px)
+                                    : Text(
+                                        'Create Profile',
+                                        style: AppTextStyles.buttonTextStyle,
+                                      ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )),
+                      )),
                   SizedBox(height: 1.h),
                   // GestureDetector(onTap: () {
                   //   Get.to(() => const BottomNavigationScreen());
                   // },
                   //     child: Text("Skip",style: TextStyle(fontSize: 14.px,color:AppColors.primaryColor, ),)),
-                  SizedBox(height: 1.h,width: 1.h,),
+                  SizedBox(
+                    height: 1.h,
+                    width: 1.h,
+                  ),
                 ],
               ),
             ),

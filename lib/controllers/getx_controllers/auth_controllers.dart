@@ -16,7 +16,8 @@ class AuthController extends GetxController {
   // Text Editing Controllers
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   final TextEditingController referralController = TextEditingController();
   final TextEditingController firstController = TextEditingController();
   final TextEditingController lastController = TextEditingController();
@@ -25,7 +26,8 @@ class AuthController extends GetxController {
   final TextEditingController locationController = TextEditingController();
   final TextEditingController emailLoginController = TextEditingController();
   final TextEditingController passwordLoginController = TextEditingController();
-  final TextEditingController recoverEmailForgotController = TextEditingController();
+  final TextEditingController recoverEmailForgotController =
+      TextEditingController();
 
   // Firebase Instances
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -33,10 +35,14 @@ class AuthController extends GetxController {
   final FirebaseStorage storage = FirebaseStorage.instance;
 
   // Other Controllers
-  ImagePickerController imagePickerController = Get.put(ImagePickerController());
-  ImagePickerController1 imagePickerController1 = Get.put(ImagePickerController1());
-  ProfessionalInformation2 professionalInformation2 = Get.put(ProfessionalInformation2());
-  UserProfileController userProfileController =Get.put(UserProfileController());
+  ImagePickerController imagePickerController =
+      Get.put(ImagePickerController());
+  ImagePickerController1 imagePickerController1 =
+      Get.put(ImagePickerController1());
+  ProfessionalInformation2 professionalInformation2 =
+      Get.put(ProfessionalInformation2());
+  UserProfileController userProfileController =
+      Get.put(UserProfileController());
 
   // Reactive Variables
   RxBool isLoading = false.obs;
@@ -48,21 +54,46 @@ class AuthController extends GetxController {
   var profileImage = ''.obs;
   var backgroundImage = ''.obs;
   RxString chooseLooking = ''.obs;
-  final List<String> looking = ["looking 1", "looking 2", "looking 3", "looking 4"];
+  final List<String> looking = [
+    "looking 1",
+    "looking 2",
+    "looking 3",
+    "looking 4"
+  ];
   RxString skillsCommunity = ''.obs;
   final List<String> skills = ["skills 1", "skills 2", "skills 3", "skills 4"];
   RxString rolesCommunity = ''.obs;
   final List<String> roles = ["roles 1", "roles 2", "roles 3", "roles 4"];
   RxString alreadyCommunity = ''.obs;
-  final List<String> already = ["already 1", "already 2", "already 3", "already 4"];
+  final List<String> already = [
+    "already 1",
+    "already 2",
+    "already 3",
+    "already 4"
+  ];
   RxString preferCommunity = ''.obs;
   final List<String> prefer = ["prefer 1", "prefer 2", "prefer 3", "prefer 4"];
   RxString locationCommunity = ''.obs;
-  final List<String> location1 = ["location 1", "location 2", "location 3", "location 4"];
+  final List<String> location1 = [
+    "location 1",
+    "location 2",
+    "location 3",
+    "location 4"
+  ];
   RxString availableCommunity = ''.obs;
-  final List<String> available = ["available 1", "available 2", "available 3", "available 4"];
+  final List<String> available = [
+    "available 1",
+    "available 2",
+    "available 3",
+    "available 4"
+  ];
   RxString languageCommunity = ''.obs;
-  final List<String> language = ["language 1", "language 2", "language 3", "language 4"];
+  final List<String> language = [
+    "language 1",
+    "language 2",
+    "language 3",
+    "language 4"
+  ];
   // Method to upload background image to Firebase Storage
   Future<String> uploadBackgroundImageToStorage(String imagePath) async {
     try {
@@ -79,6 +110,7 @@ class AuthController extends GetxController {
       throw e;
     }
   }
+
   // Method to upload profile image to Firebase Storage
   Future<String> uploadImageToStorage(String imagePath) async {
     try {
@@ -95,9 +127,11 @@ class AuthController extends GetxController {
       throw e;
     }
   }
+
 // Call this method when the user updates their background image
   Future<String> updateBackgroundImage(String imagePath) async {
-    String downloadUrl = await userProfileController.uploadBackgroundImageToStorage(imagePath);
+    String downloadUrl =
+        await userProfileController.uploadBackgroundImageToStorage(imagePath);
 
     // Update Firestore with the new background image URL
     await firestore.collection('users').doc(auth.currentUser!.uid).update({
@@ -106,11 +140,13 @@ class AuthController extends GetxController {
 
     return downloadUrl; // Return the URL for immediate use
   }
+
   // Call this method when the user updates their profile image
   Future<String> updateProfileImage(String imagePath) async {
     log("Starting profile image update");
 
-    String downloadUrl = await userProfileController.uploadImageToStorage(imagePath);
+    String downloadUrl =
+        await userProfileController.uploadImageToStorage(imagePath);
 
     // Update Firestore with the new profile image URL
     await firestore.collection('users').doc(auth.currentUser!.uid).update({
@@ -123,14 +159,19 @@ class AuthController extends GetxController {
 
   Future<void> signUpMethod() async {
     // Ensure all required community fields are selected
-    if (chooseLooking.value.isEmpty || skillsCommunity.value.isEmpty ||
-        rolesCommunity.value.isEmpty || alreadyCommunity.value.isEmpty ||
-        preferCommunity.value.isEmpty || locationCommunity.value.isEmpty ||
-        availableCommunity.value.isEmpty || languageCommunity.value.isEmpty) {
-      showErrorSnackBar("Please select all required community fields before signing up.");
+    // if (chooseLooking.value.isEmpty || skillsCommunity.value.isEmpty ||
+    //     rolesCommunity.value.isEmpty || alreadyCommunity.value.isEmpty ||
+    //     preferCommunity.value.isEmpty || locationCommunity.value.isEmpty ||
+    //     availableCommunity.value.isEmpty || languageCommunity.value.isEmpty) {
+    //   showErrorSnackBar("Please select all required community fields before signing up.");
+    //   return; // Exit the method if validation fails
+    // }
+    //removed every value besides chooseLooking form validation
+    if (chooseLooking.value.isEmpty) {
+      showErrorSnackBar(
+          "Please select the 'chooseLooking' field before signing up.");
       return; // Exit the method if validation fails
     }
-
     try {
       isLoading.value = true;
 
@@ -142,12 +183,14 @@ class AuthController extends GetxController {
       String uid = userCredential.user!.uid;
 
       // Upload profile image and get URL
-      String imageUrl = await uploadImageToStorage(imagePickerController.imagePath.value);
+      String imageUrl =
+          await uploadImageToStorage(imagePickerController.imagePath.value);
 
       // Check if background image is selected
       String backgroundImageUrl = "";
       if (imagePickerController1.backgroundImagePath.value.isNotEmpty) {
-        backgroundImageUrl = await uploadImageToStorage(imagePickerController1.backgroundImagePath.value);
+        backgroundImageUrl = await uploadImageToStorage(
+            imagePickerController1.backgroundImagePath.value);
       }
 
       // Store user data in Firestore
@@ -161,14 +204,22 @@ class AuthController extends GetxController {
         "location": locationController.text.trim(),
         "profileImage": imageUrl,
         "backgroundImage": backgroundImageUrl, // Use the background image URL
-        "chooseLooking": chooseLooking.value,
-        "skillsCommunity": skillsCommunity.value,
-        "rolesCommunity": rolesCommunity.value,
-        "alreadyCommunity": alreadyCommunity.value,
-        "preferCommunity": preferCommunity.value,
-        "locationCommunity": locationCommunity.value,
-        "availableCommunity": availableCommunity.value,
-        "languageCommunity": languageCommunity.value,
+        "chooseLooking": chooseLooking
+            .value, //only this value may not be null from the dropdown
+        "skillsCommunity":
+            skillsCommunity.value.isEmpty ? null : skillsCommunity.value,
+        "rolesCommunity":
+            rolesCommunity.value.isEmpty ? null : rolesCommunity.value,
+        "alreadyCommunity":
+            alreadyCommunity.value.isEmpty ? null : alreadyCommunity.value,
+        "preferCommunity":
+            preferCommunity.value.isEmpty ? null : preferCommunity.value,
+        "locationCommunity":
+            locationCommunity.value.isEmpty ? null : locationCommunity.value,
+        "availableCommunity":
+            availableCommunity.value.isEmpty ? null : availableCommunity.value,
+        "languageCommunity":
+            languageCommunity.value.isEmpty ? null : languageCommunity.value,
         "createdAt": FieldValue.serverTimestamp(),
       });
       showSuccessSnackBar("Sign Up Data Added Successfully!");
@@ -202,7 +253,8 @@ class AuthController extends GetxController {
       isLoading.value = true;
 
       // Authenticate with Firebase Auth
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: userEmail,
         password: userPassword,
       );
@@ -211,7 +263,8 @@ class AuthController extends GetxController {
       Get.to(() => const BottomNavigationScreen());
       // Fetch user document from Firestore using the uid from FirebaseAuth
       String uid = userCredential.user!.uid;
-      DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
       if (!userDoc.exists) {
         // Handle case if user does not exist in Firestore
@@ -222,7 +275,6 @@ class AuthController extends GetxController {
 
       // User exists in Firestore, login successful
       log("User found in Firestore: ${userDoc.data()}");
-
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
       log("FirebaseAuthException: $e");
@@ -242,11 +294,13 @@ class AuthController extends GetxController {
       isLoading.value = false; // Ensure loading stops
     }
   }
+
   Future<Map<String, dynamic>> fetchUserDataImages() async {
     try {
       isLoading.value = true;
       String uid = auth.currentUser!.uid;
-      DocumentSnapshot userDoc = await firestore.collection("users").doc(uid).get();
+      DocumentSnapshot userDoc =
+          await firestore.collection("users").doc(uid).get();
       if (userDoc.exists) {
         final userData = userDoc.data() as Map<String, dynamic>;
 
@@ -264,10 +318,12 @@ class AuthController extends GetxController {
     }
     return {};
   }
+
 // Fetch user data from Firestore based on UID
   Future<void> fetchUserData(String uid) async {
     try {
-      DocumentSnapshot userDoc = await firestore.collection('users').doc(uid).get();
+      DocumentSnapshot userDoc =
+          await firestore.collection('users').doc(uid).get();
       if (userDoc.exists) {
         firstName.value = userDoc['firstName'] ?? '';
         lastName.value = userDoc['lastName'] ?? '';
@@ -284,10 +340,12 @@ class AuthController extends GetxController {
       Get.snackbar('Error', 'Failed to fetch user data');
     }
   }
+
   // Method to check if email exists
   Future<bool> checkEmail() async {
     try {
-      QuerySnapshot querySnapshot = await firestore.collection("users")
+      QuerySnapshot querySnapshot = await firestore
+          .collection("users")
           .where("emailName", isEqualTo: emailController.text.trim())
           .get();
       return querySnapshot.docs.isNotEmpty; // Returns true if email exists
@@ -296,6 +354,7 @@ class AuthController extends GetxController {
       return false; // Return false in case of an error
     }
   }
+
   // Forgot Password
   Future<void> forgotPasswordMethod() async {
     if (recoverEmailForgotController.text.trim().isEmpty) {
@@ -304,8 +363,10 @@ class AuthController extends GetxController {
     }
     try {
       isLoading.value = true;
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: recoverEmailForgotController.text.trim());
-      showSuccessSnackBar("We have sent you an email to recover your password.");
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+          email: recoverEmailForgotController.text.trim());
+      showSuccessSnackBar(
+          "We have sent you an email to recover your password.");
       recoverEmailForgotController.clear();
       Get.to(LoginScreen());
     } catch (error) {
@@ -329,7 +390,6 @@ class AuthController extends GetxController {
 
       log("User logged out successfully.");
       showSuccessSnackBar("User logged out successfully.");
-
     } catch (e) {
       log("Error during logout: $e");
       showErrorSnackBar("Error logging out. Please try again.");
@@ -338,11 +398,10 @@ class AuthController extends GetxController {
       isLoading.value = false;
     }
   }
-
 }
-
 
 RegExp isValidEmail = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$');
 
-RegExp isValidPassword = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
+RegExp isValidPassword =
+    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
