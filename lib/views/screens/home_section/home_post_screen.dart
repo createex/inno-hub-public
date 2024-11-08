@@ -10,6 +10,7 @@ import '../../../controllers/getx_controllers/auth_controllers.dart';
 import '../../../controllers/getx_controllers/create_post_controller.dart';
 import '../../../controllers/getx_controllers/post_controller.dart';
 import '../../../services/firebase_services.dart';
+import '../profile_section/detailed_post_screen.dart';
 import '../profile_section/other_user_profile.dart';
 
 class HomePostScreen extends StatefulWidget {
@@ -135,7 +136,9 @@ class _HomePostScreenState extends State<HomePostScreen> {
                                   SizedBox(height: 1.h),
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => const PlayVideoScreen());
+                                      //Get.to(() => const PlayVideoScreen());
+                                      //create a screen like this with a comment section
+                                        Get.to(() => DetailedPostScreen(post: post));
                                     },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(12),

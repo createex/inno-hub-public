@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:in_hub/models/comment_model.dart';
 
 class PostMediaModel {
   String profileImage;
@@ -12,7 +13,7 @@ class PostMediaModel {
   String media;
   String ownerId;
   RxList<String> likes;
-  List<PostMediaModel> comments; // List of PostMediaModel for nested comments
+  List<CommentModel> comments; // List of PostMediaModel for nested comments
 
   // Constructor
   PostMediaModel({
@@ -43,8 +44,8 @@ class PostMediaModel {
       media: data['media'] ?? '',
       likes: List<String>.from(data['likes'] ?? []),
       comments: (data['comments'] as List<dynamic>?)
-          ?.map((commentMap) => PostMediaModel.fromMap(commentMap)) // Using PostMediaModel for nested comments
-          .toList() ??
+          ?.map((commentMap) => CommentModel.fromMap(commentMap as Map<String, dynamic>))
+          .toList() as List<CommentModel>? ??
           [],
       ownerId: data['ownerId'] ?? '',
       postId: doc.id, // Set the user ID from Firestore data
@@ -78,8 +79,8 @@ class PostMediaModel {
       media: map['media'] ?? '',
       likes: List<String>.from(map['likes'] ?? []),
       comments: (map['comments'] as List<dynamic>?)
-          ?.map((commentMap) => PostMediaModel.fromMap(commentMap))
-          .toList() ??
+          ?.map((commentMap) => CommentModel.fromMap(commentMap as Map<String, dynamic>))
+          .toList() as List<CommentModel>? ??
           [],
       ownerId: map['ownerId'] ?? '',
       postId: '',
